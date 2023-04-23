@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Logo. -->
+    <dimen name="logo_layout_margin">48dp</dimen>
+    <!-- Edit text. -->
+    <dimen name="edit_text_padding">0dp</dimen>
+    <!-- Text input layout. -->
+    <dimen name="text_input_layout_height">56dp</dimen>
+    <dimen name="text_input_layout_horizontal_margin">16dp</dimen>
+    <dimen name="text_input_layout_vertical_margin">12dp</dimen>
+    <dimen name="text_input_layout_top_margin">12dp</dimen>
+    <dimen name="text_input_layout_bottom_margin">12dp</dimen>
+    <!-- Button. -->
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="button_horizontal_margin">16dp</dimen>
+    <dimen name="button_top_margin">12dp</dimen>
+    <!-- Bottom card. -->
+    <dimen name="bottom_card_height">56dp</dimen>
+    <!-- Action text. -->
+    <dimen name="action_text_padding">8dp</dimen>
+</resources>

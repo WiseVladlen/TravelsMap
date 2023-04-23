@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LogoStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:text">@string/app_name</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:layout_margin">@dimen/logo_layout_margin</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="drawableTopCompat">@drawable/ic_two_tone_map_128</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:padding">@dimen/edit_text_padding</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textSize">16sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TextLinkStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">@dimen/action_text_padding</item>
+    </style>
+</resources>

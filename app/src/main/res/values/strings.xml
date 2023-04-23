@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Travels Map</string>
+    <!-- Login screen. -->
+    <string name="login.username_hint">Username</string>
+    <string name="login.password_hint">Password</string>
+    <string name="login.action_sign_up">Sign Up</string>
+    <string name="login.action_log_in">Log In</string>
+    <string name="login.question_no_account">Don\'t have an account?</string>
+    <!-- Registration screen. -->
+    <string name="registration.full_name_hint">Full Name</string>
+    <string name="registration.username_hint">Username</string>
+    <string name="registration.password_hint">Password</string>
+    <string name="registration.action_sign_up">Sign Up</string>
+    <string name="registration.action_log_in">Log In</string>
+    <string name="registration.question_have_an_account">Already have an account?</string>
 </resources>
