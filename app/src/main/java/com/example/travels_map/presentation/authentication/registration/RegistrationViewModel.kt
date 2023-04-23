@@ -1,0 +1,39 @@
+package com.example.travels_map.presentation.authentication.registration
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.travels_map.domain.interactors.SignUpInteractor
+import com.example.travels_map.domain.models.UserRegistrationData
+import kotlinx.coroutines.CompletableJob
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Provider
+
+class RegistrationViewModel(private val signUpInteractor: SignUpInteractor) : ViewModel() {
+
+    private val job: CompletableJob = SupervisorJob()
+
+    fun signUp(username: String, fullName: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO + job) {
+            signUpInteractor.run(UserRegistrationData(username, fullName, password))
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    class RegistrationViewModelFactory @Inject constructor(
+        private val signUpInteractor: Provider<SignUpInteractor>,
+    ) : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return RegistrationViewModel(signUpInteractor.get()) as T
+        }
+    }
+}
