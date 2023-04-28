@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_explore"
+        android:icon="@drawable/ic_outline_explore_24"
+        android:title="@string/bottom_navigation_menu.explore" />
+
+    <item
+        android:id="@+id/navigation_saved"
+        android:icon="@drawable/ic_outline_bookmark_24"
+        android:title="@string/bottom_navigation_menu.saved" />
+
+    <item
+        android:id="@+id/navigation_group"
+        android:icon="@drawable/ic_baseline_group_24"
+        android:title="@string/bottom_navigation_menu.group" />
+
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/bottom_navigation_menu.account" />
+
+</menu>

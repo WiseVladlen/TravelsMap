@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_group">
+
+    <navigation
+        android:id="@+id/navigation_group"
+        app:startDestination="@id/groupFragment">
+
+        <fragment
+            android:id="@+id/groupFragment"
+            android:name="com.example.travels_map.presentation.main.group.GroupFragment"
+            android:label="GroupFragment">
+            <action
+                android:id="@+id/action_groupFragment_to_selectedGroupErrorFragment"
+                app:destination="@id/selectedGroupErrorFragment" />
+            <action
+                android:id="@+id/action_groupFragment_to_selectGroupFragment"
+                app:destination="@id/selectGroupFragment" />
+            <action
+                android:id="@+id/action_groupFragment_to_addParticipantFragment"
+                app:destination="@id/addParticipantFragment" />
+            <action
+                android:id="@+id/action_groupFragment_to_groupSwitchingBottomSheetFragment"
+                app:destination="@id/groupSwitchingBottomSheetFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/createGroupFragment"
+            android:name="com.example.travels_map.presentation.main.group.create.CreateGroupFragment"
+            android:label="CreateGroupFragment" />
+
+        <fragment
+            android:id="@+id/selectedGroupErrorFragment"
+            android:name="com.example.travels_map.presentation.main.group.error.SelectedGroupErrorFragment"
+            android:label="SelectedGroupErrorFragment">
+            <action
+                android:id="@+id/action_selectedGroupErrorFragment_to_joinGroupFragment"
+                app:destination="@id/joinGroupFragment" />
+            <action
+                android:id="@+id/action_selectedGroupErrorFragment_to_createGroupFragment"
+                app:destination="@id/createGroupFragment" />
+            <action
+                android:id="@+id/action_selectedGroupErrorFragment_to_selectGroupFragment"
+                app:destination="@id/selectGroupFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/joinGroupFragment"
+            android:name="com.example.travels_map.presentation.main.group.join.JoinGroupFragment"
+            android:label="JoinGroupFragment" />
+
+        <fragment
+            android:id="@+id/selectGroupFragment"
+            android:name="com.example.travels_map.presentation.main.group.select.SelectGroupFragment"
+            android:label="SelectGroupFragment" />
+
+        <fragment
+            android:id="@+id/addParticipantFragment"
+            android:name="com.example.travels_map.presentation.main.group.add_participant.AddParticipantFragment"
+            android:label="AddParticipantFragment">
+            <action
+                android:id="@+id/action_addParticipantFragment_to_groupKeyManageBottomSheetFragment"
+                app:destination="@id/groupKeyManageBottomSheetFragment" />
+        </fragment>
+
+        <dialog
+            android:id="@+id/groupSwitchingBottomSheetFragment"
+            android:name="com.example.travels_map.presentation.main.group.switching.GroupSwitchingBottomSheetFragment"
+            android:label="GroupSwitchingBottomSheetFragment">
+            <action
+                android:id="@+id/action_groupSwitchingBottomSheetFragment_to_selectGroupFragment"
+                app:destination="@id/selectGroupFragment" />
+            <action
+                android:id="@+id/action_groupSwitchingBottomSheetFragment_to_createGroupFragment"
+                app:destination="@id/createGroupFragment" />
+            <action
+                android:id="@+id/action_groupSwitchingBottomSheetFragment_to_joinGroupFragment"
+                app:destination="@id/joinGroupFragment" />
+        </dialog>
+
+        <dialog
+            android:id="@+id/groupKeyManageBottomSheetFragment"
+            android:name="com.example.travels_map.presentation.main.group.add_participant.group_key_manage.GroupKeyManageBottomSheetFragment"
+            android:label="GroupKeyManageBottomSheetFragment">
+            <argument
+                android:name="key"
+                app:argType="string" />
+        </dialog>
+
+    </navigation>
+
+</navigation>

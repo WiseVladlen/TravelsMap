@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/toolbar_bottom_margin"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:title="@string/join_group.title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/text_input_layout_height"
+        android:layout_marginHorizontal="@dimen/text_input_layout_horizontal_margin"
+        android:layout_marginVertical="@dimen/text_input_layout_vertical_margin"
+        android:hint="@string/join_group.query_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_query"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeOptions="actionSend"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/send_request_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/button_horizontal_margin"
+        android:layout_marginTop="@dimen/button_top_margin"
+        android:text="@string/join_group.send_request" />
+
+</LinearLayout>

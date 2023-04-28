@@ -2,6 +2,7 @@ package com.example.travels_map.presentation.di.modules
 
 import android.content.Context
 import com.example.travels_map.TravelsMapApplication
+import com.example.travels_map.data.managers.GroupManager
 import com.example.travels_map.data.managers.UserSessionManager
 import dagger.Module
 import dagger.Provides
@@ -20,5 +21,11 @@ class LocalModule {
     @Singleton
     fun getUserSessionManager(): UserSessionManager {
         return UserSessionManager()
+    }
+
+    @Provides
+    @Singleton
+    fun getGroupManager(): GroupManager {
+        return GroupManager()
     }
 }

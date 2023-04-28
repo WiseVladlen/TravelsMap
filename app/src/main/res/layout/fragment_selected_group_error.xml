@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/ErrorScreenStyle">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/text_horizontal_margin"
+        android:layout_marginBottom="@dimen/text_bottom_margin"
+        android:text="@string/selected_group_error.title" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/select_group_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/button_horizontal_margin"
+        android:layout_marginVertical="@dimen/button_vertical_margin"
+        android:text="@string/selected_group_error.select_group"
+        app:icon="@drawable/ic_baseline_group_24" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/join_group_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/button_horizontal_margin"
+        android:layout_marginVertical="@dimen/button_vertical_margin"
+        android:text="@string/selected_group_error.join_group"
+        app:icon="@drawable/ic_baseline_login_24" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/create_group_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/button_horizontal_margin"
+        android:layout_marginTop="@dimen/button_top_margin"
+        android:text="@string/selected_group_error.add_group"
+        app:icon="@drawable/ic_baseline_create_24" />
+
+</LinearLayout>
