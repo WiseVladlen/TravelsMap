@@ -28,8 +28,8 @@
     <dimen name="text_icon_card_padding">16dp</dimen>
     <dimen name="text_icon_drawable_padding">16dp</dimen>
     <!-- Header card. -->
-    <dimen name="header_card_padding">8dp</dimen>
-    <dimen name="header_card_drawable_padding">8dp</dimen>
+    <dimen name="header_card_padding">12dp</dimen>
+    <dimen name="header_card_drawable_padding">12dp</dimen>
     <!-- Text. -->
     <dimen name="text_horizontal_margin">16dp</dimen>
     <dimen name="text_vertical_margin">12dp</dimen>
