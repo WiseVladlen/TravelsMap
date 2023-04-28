@@ -87,18 +87,6 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
-    <style name="ErrorScreenButtonStyle" parent="MaterialButtonStyle">
-        <item name="android:gravity">center</item>
-        <item name="iconGravity">textStart</item>
-        <item name="iconPadding">@dimen/button_icon_padding</item>
-    </style>
-
-    <style name="ErrorScreenStyle">
-        <item name="android:gravity">center</item>
-        <item name="android:textViewStyle">@style/ErrorScreenTitleStyle</item>
-        <item name="materialButtonStyle">@style/ErrorScreenButtonStyle</item>
-    </style>
-
     <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Surface">
         <item name="android:elevation">4dp</item>
         <item name="titleCentered">true</item>
