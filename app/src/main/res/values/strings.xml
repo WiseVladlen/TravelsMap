@@ -13,4 +13,47 @@
     <string name="registration.action_sign_up">Sign Up</string>
     <string name="registration.action_log_in">Log In</string>
     <string name="registration.question_have_an_account">Already have an account?</string>
+    <!-- Bottom navigation menu. -->
+    <string name="bottom_navigation_menu.explore">Explore</string>
+    <string name="bottom_navigation_menu.saved">Saved</string>
+    <string name="bottom_navigation_menu.group">Group</string>
+    <string name="bottom_navigation_menu.account">Account</string>
+    <!-- Group screen. -->
+    <string name="group.add_participant">Add participant</string>
+    <string name="group.switch">Switch group</string>
+    <string name="group.leave">Leave the group</string>
+    <plurals name="group.number_of_participants">
+        <item quantity="one">%d participant</item>
+        <item quantity="other">%d participants</item>
+    </plurals>
+    <!-- Card layout. -->
+    <string name="card_layout.avatar_description">Card layout avatar</string>
+    <!-- Selected group error screen. -->
+    <string name="selected_group_error.title">Unfortunately, you are not a member of any group. Try the following:</string>
+    <string name="selected_group_error.select_group">Select a group</string>
+    <string name="selected_group_error.join_group">Join the group</string>
+    <string name="selected_group_error.add_group">Create a group</string>
+    <!-- Join group screen. -->
+    <string name="join_group.title">Join the group</string>
+    <string name="join_group.send_request">Send request</string>
+    <string name="join_group.query_hint">Group name#xxxxxxxxxx</string>
+    <!-- Manage element title screen. -->
+    <string name="manage_element_title.done">Done</string>
+    <!-- Create group screen. -->
+    <string name="create_group.title">Create a group</string>
+    <string name="create_group.group_name_hint">Group name</string>
+    <!-- Select group screen. -->
+    <string name="select_group.title">Select a group</string>
+    <string name="select_group.no_results">No results found.</string>
+    <!-- Add participant screen. -->
+    <string name="add_participant.title">Add participant</string>
+    <string name="add_participant.invite">You can invite anyone to the group by sharing the group key below, which they will have to paste into the search box.</string>
+    <string name="add_participant.group_key">%1$s#%2$s</string>
+    <!-- Group switching screen. -->
+    <string name="group_switching.create">Create a group</string>
+    <string name="group_switching.select">Select a group</string>
+    <string name="group_switching.join">Join the group</string>
+    <!-- Group key manage screen. -->
+    <string name="group_key_manage.share">Share group key</string>
+    <string name="group_key_manage.copy">Copy group key</string>
 </resources>

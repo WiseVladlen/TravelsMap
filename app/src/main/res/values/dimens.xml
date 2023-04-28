@@ -13,9 +13,35 @@
     <!-- Button. -->
     <dimen name="button_height">56dp</dimen>
     <dimen name="button_horizontal_margin">16dp</dimen>
+    <dimen name="button_vertical_margin">12dp</dimen>
     <dimen name="button_top_margin">12dp</dimen>
+    <dimen name="button_icon_padding">8dp</dimen>
     <!-- Bottom card. -->
     <dimen name="bottom_card_height">56dp</dimen>
     <!-- Action text. -->
     <dimen name="action_text_padding">8dp</dimen>
+    <!-- Text card. -->
+    <dimen name="text_card_height">56dp</dimen>
+    <dimen name="text_card_padding">16dp</dimen>
+    <!-- Text icon card. -->
+    <dimen name="text_icon_card_height_normal">56dp</dimen>
+    <dimen name="text_icon_card_padding">16dp</dimen>
+    <dimen name="text_icon_drawable_padding">16dp</dimen>
+    <!-- Header card. -->
+    <dimen name="header_card_padding">8dp</dimen>
+    <dimen name="header_card_drawable_padding">8dp</dimen>
+    <!-- Text. -->
+    <dimen name="text_horizontal_margin">16dp</dimen>
+    <dimen name="text_vertical_margin">12dp</dimen>
+    <dimen name="text_top_margin">12dp</dimen>
+    <dimen name="text_bottom_margin">12dp</dimen>
+    <!-- Model content card. -->
+    <dimen name="model_content_card_height">72dp</dimen>
+    <dimen name="model_content_card_icon_size">72dp</dimen>
+    <dimen name="model_content_card_icon_padding">20dp</dimen>
+    <!-- Toolbar. -->
+    <dimen name="toolbar_bottom_margin">12dp</dimen>
+    <dimen name="toolbar_action_button_end_margin">12dp</dimen>
+    <dimen name="toolbar_action_button_horizontal_padding">16dp</dimen>
+    <dimen name="toolbar_action_button_vertical_padding">8dp</dimen>
 </resources>

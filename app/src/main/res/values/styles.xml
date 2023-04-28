@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="LogoStyle" parent="Widget.AppCompat.TextView">
         <item name="android:text">@string/app_name</item>
         <item name="android:textSize">28sp</item>
@@ -24,5 +25,87 @@
         <item name="android:textColor">?colorPrimary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">@dimen/action_text_padding</item>
+    </style>
+
+    <style name="CardStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextCardStyle" parent="CardStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:height">@dimen/text_card_height</item>
+        <item name="android:padding">@dimen/text_card_padding</item>
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
+    <style name="CenteredTextCardStyle" parent="TextCardStyle">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StandardTextCardStyle" parent="TextCardStyle">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextIconCardStyle" parent="CardStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:height">@dimen/text_icon_card_height_normal</item>
+        <item name="android:padding">@dimen/text_icon_card_padding</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:drawablePadding">@dimen/text_icon_drawable_padding</item>
+    </style>
+
+    <style name="HeaderCardStyle" parent="CardStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/header_card_padding</item>
+        <item name="android:drawablePadding">@dimen/header_card_drawable_padding</item>
+    </style>
+
+    <style name="ModelContentCardStyle">
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
+    <style name="ModelContentCardAvatarStyle">
+        <item name="android:padding">@dimen/model_content_card_icon_padding</item>
+    </style>
+
+    <style name="ModelContentCardTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="ModelContentCardSubtitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ErrorScreenTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="ErrorScreenButtonStyle" parent="MaterialButtonStyle">
+        <item name="android:gravity">center</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/button_icon_padding</item>
+    </style>
+
+    <style name="ErrorScreenStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textViewStyle">@style/ErrorScreenTitleStyle</item>
+        <item name="materialButtonStyle">@style/ErrorScreenButtonStyle</item>
+    </style>
+
+    <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="android:elevation">4dp</item>
+        <item name="titleCentered">true</item>
+    </style>
+
+    <style name="ToolbarActionButtonStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_gravity">end|center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/toolbar_action_button_end_margin</item>
     </style>
 </resources>
