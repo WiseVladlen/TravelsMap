@@ -10,6 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentLoginBinding
+import com.example.travels_map.presentation.activity.MainActivity
 import javax.inject.Inject
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -39,7 +40,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun setupOnClickListeners() {
         with(binding) {
             logInButton.setOnClickListener {
-                viewModel.logIn(editTextUsername.text.toString(), editTextPassword.text.toString())
+                viewModel.logIn(
+                    editTextUsername.text.toString(),
+                    editTextPassword.text.toString(),
+                ) {
+                    (requireActivity() as MainActivity).setupNavGraph()
+                }
             }
 
             textViewSignUp.setOnClickListener {

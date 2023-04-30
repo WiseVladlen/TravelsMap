@@ -1,50 +1,68 @@
 package com.example.travels_map.data.repositories
 
-import com.example.travels_map.data.managers.UserSessionManager
+import com.example.travels_map.data.managers.UserManager
 import com.example.travels_map.data.mappers.IEntityMapper
+import com.example.travels_map.domain.entities.User
 import com.example.travels_map.domain.models.UserLoginData
 import com.example.travels_map.domain.models.UserRegistrationData
 import com.example.travels_map.domain.repositories.IUserRepository
+import com.parse.ParseObject
 import com.parse.ParseUser
+import com.parse.coroutines.parseLogIn
+import com.parse.coroutines.suspendFetch
+import com.parse.coroutines.suspendSignUp
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private val userSessionManager: UserSessionManager,
-    private val userToParseUserMapper: IEntityMapper<UserRegistrationData, ParseUser>,
+    private val userManager: UserManager,
+    private val userRegistrationDataToParseUserMapper: IEntityMapper<UserRegistrationData, ParseUser>,
+    private val parseObjectToUserMapper: IEntityMapper<ParseObject, User>,
 ) : IUserRepository {
 
-    override suspend fun getCurrentUserSafely(): ParseUser? {
-        if (userSessionManager.checkForNotNullState()) {
-            return ParseUser.getCurrentUser()
-        }
-        return null
-    }
-
-    override suspend fun signUp(userData: UserRegistrationData) {
-        userToParseUserMapper.mapEntity(userData).signUpInBackground { exception ->
-            if (exception == null) {
-                userSessionManager.checkForNotNullState()
-            } else {
-                ParseUser.logOut()
-            }
+    override fun getCurrentUser(): User? {
+        return getCurrentParseUserSafely()?.let { user ->
+            parseObjectToUserMapper.mapEntity(user)
         }
     }
 
-    override suspend fun logIn(userData: UserLoginData) {
-        ParseUser.logInInBackground(userData.username, userData.password) { user, exception ->
-            if (exception == null && user != null) {
-                userSessionManager.checkForNotNullState()
-            } else {
-                ParseUser.logOut()
-            }
+    override fun getCurrentParseUserSafely(): ParseUser? {
+        return ParseUser.getCurrentUser()
+    }
+
+    override suspend fun fetchCurrentUser() {
+        val result = runCatching {
+            parseObjectToUserMapper.mapEntity(ParseUser.getCurrentUser().suspendFetch())
+        }
+        userManager.emit(result)
+    }
+
+    override suspend fun signUp(userData: UserRegistrationData): Result<Nothing?> {
+        return runCatching {
+            val parseUser = userRegistrationDataToParseUserMapper.mapEntity(userData)
+            parseUser.suspendSignUp()
+
+            val user = parseObjectToUserMapper.mapEntity(ParseUser.getCurrentUser())
+            userManager.emit(Result.success(user))
+
+            return@runCatching null
         }
     }
 
-    override suspend fun logOut() {
-        ParseUser.logOutInBackground { exception ->
-            if (exception == null) {
-                userSessionManager.checkForNotNullState()
-            }
+    override suspend fun logIn(userData: UserLoginData): Result<Nothing?> {
+        return runCatching {
+            val user = parseLogIn(userData.username, userData.password)
+
+            userManager.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
+
+            return@runCatching null
+        }
+    }
+
+    override suspend fun logOut(): Result<Nothing?> {
+        return runCatching {
+            ParseUser.logOut()
+
+            return@runCatching null
         }
     }
 }

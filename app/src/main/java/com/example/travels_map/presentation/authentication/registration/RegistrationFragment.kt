@@ -10,6 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentRegistrationBinding
+import com.example.travels_map.presentation.activity.MainActivity
 import javax.inject.Inject
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
@@ -43,7 +44,9 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                     editTextUsername.text.toString(),
                     editTextFullName.text.toString(),
                     editTextPassword.text.toString(),
-                )
+                ) {
+                    (requireActivity() as MainActivity).setupNavGraph()
+                }
             }
 
             textViewSignIn.setOnClickListener {

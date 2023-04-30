@@ -31,7 +31,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun load() {
         val result = runWithExceptionCatching {
-            val currentUser = userRepository.getCurrentUserSafely() ?: throw Exception()
+            val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
                 whereEqualTo(User.KEY_OBJECT_ID, currentUser.objectId)
@@ -49,7 +49,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun loadAll(): Result<List<Group>> {
         return runWithExceptionCatching {
-            val currentUser = userRepository.getCurrentUserSafely() ?: throw Exception()
+            val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
                 whereEqualTo(User.KEY_OBJECT_ID, currentUser.objectId)
@@ -72,7 +72,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun select(group: Group) {
         val result = runWithExceptionCatching {
-            val currentUser = userRepository.getCurrentUserSafely() ?: throw Exception()
+            val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             currentUser.put(User.KEY_SELECTED_GROUP_ID, group.id)
             currentUser.suspendSave()
@@ -84,7 +84,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun join(query: String) {
         val result = runWithExceptionCatching {
-            val currentUser = userRepository.getCurrentUserSafely() ?: throw Exception()
+            val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
                 whereEqualTo(User.KEY_OBJECT_ID, currentUser.objectId)
@@ -118,7 +118,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun leave() {
         runWithExceptionCatching {
-            val currentUser = userRepository.getCurrentUserSafely() ?: throw Exception()
+            val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
                 whereEqualTo(User.KEY_OBJECT_ID, currentUser.objectId)
@@ -157,7 +157,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun create(name: String) {
         runWithExceptionCatching {
-            val user = userRepository.getCurrentUserSafely() ?: throw Exception()
+            val user = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val group = ParseObject(Group.CLASS_NAME).apply {
                 put(Group.KEY_NAME, name)

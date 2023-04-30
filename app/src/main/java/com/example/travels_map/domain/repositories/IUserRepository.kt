@@ -1,12 +1,15 @@
 package com.example.travels_map.domain.repositories
 
+import com.example.travels_map.domain.entities.User
 import com.example.travels_map.domain.models.UserLoginData
 import com.example.travels_map.domain.models.UserRegistrationData
 import com.parse.ParseUser
 
 interface IUserRepository {
-    suspend fun getCurrentUserSafely(): ParseUser?
-    suspend fun signUp(userData: UserRegistrationData)
-    suspend fun logIn(userData: UserLoginData)
-    suspend fun logOut()
+    fun getCurrentUser(): User?
+    fun getCurrentParseUserSafely(): ParseUser?
+    suspend fun fetchCurrentUser()
+    suspend fun signUp(userData: UserRegistrationData): Result<Nothing?>
+    suspend fun logIn(userData: UserLoginData): Result<Nothing?>
+    suspend fun logOut(): Result<Nothing?>
 }
