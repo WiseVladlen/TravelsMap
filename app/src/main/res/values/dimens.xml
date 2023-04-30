@@ -15,6 +15,7 @@
     <dimen name="button_horizontal_margin">16dp</dimen>
     <dimen name="button_vertical_margin">12dp</dimen>
     <dimen name="button_top_margin">12dp</dimen>
+    <dimen name="button_bottom_margin">12dp</dimen>
     <dimen name="button_icon_padding">8dp</dimen>
     <!-- Bottom card. -->
     <dimen name="bottom_card_height">56dp</dimen>
@@ -44,4 +45,6 @@
     <dimen name="toolbar_action_button_end_margin">12dp</dimen>
     <dimen name="toolbar_action_button_horizontal_padding">16dp</dimen>
     <dimen name="toolbar_action_button_vertical_padding">8dp</dimen>
+    <!-- Header profile picture. -->
+    <dimen name="header_profile_picture_margin">12dp</dimen>
 </resources>
