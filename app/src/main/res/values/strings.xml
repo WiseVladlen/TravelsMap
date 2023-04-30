@@ -56,4 +56,21 @@
     <!-- Group key manage screen. -->
     <string name="group_key_manage.share">Share group key</string>
     <string name="group_key_manage.copy">Copy group key</string>
+    <!-- Account screen. -->
+    <string name="account.avatar_description">User avatar</string>
+    <string name="account.edit_profile">Edit profile</string>
+    <string name="account.change_password">Change password</string>
+    <string name="account.log_out">Log Out</string>
+    <!-- Change password screen. -->
+    <string name="change_password.title">Change password</string>
+    <string name="change_password.done">Done</string>
+    <string name="change_password.new_password">New password</string>
+    <string name="change_password.new_password_again">New password, again</string>
+    <!-- Edit profile screen. -->
+    <string name="edit_profile.title">Edit profile</string>
+    <string name="edit_profile.done">Done</string>
+    <string name="edit_profile.edit_picture">Edit picture</string>
+    <string name="edit_profile.username">Username</string>
+    <string name="edit_profile.full_name">Full Name</string>
+    <string name="edit_profile.blank">&#160;</string>
 </resources>

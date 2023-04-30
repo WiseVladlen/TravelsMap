@@ -4,6 +4,9 @@ import com.example.travels_map.presentation.activity.MainActivity
 import com.example.travels_map.presentation.authentication.login.LoginFragment
 import com.example.travels_map.presentation.authentication.registration.RegistrationFragment
 import com.example.travels_map.presentation.di.modules.AppModule
+import com.example.travels_map.presentation.main.account.AccountFragment
+import com.example.travels_map.presentation.main.account.change_password.ChangePasswordFragment
+import com.example.travels_map.presentation.main.account.edit_profile.EditProfileFragment
 import com.example.travels_map.presentation.main.group.GroupFragment
 import com.example.travels_map.presentation.main.group.add_participant.AddParticipantFragment
 import com.example.travels_map.presentation.main.group.create.CreateGroupFragment
@@ -31,4 +34,9 @@ interface AppComponent {
     fun inject(fragment: JoinGroupFragment)
 
     fun inject(fragment: AddParticipantFragment)
+
+    fun inject(fragment: AccountFragment)
+    fun inject(fragment: EditProfileFragment)
+
+    fun inject(fragment: ChangePasswordFragment)
 }

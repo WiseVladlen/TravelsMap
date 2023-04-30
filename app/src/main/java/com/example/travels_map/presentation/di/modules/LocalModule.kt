@@ -3,7 +3,7 @@ package com.example.travels_map.presentation.di.modules
 import android.content.Context
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.data.managers.GroupManager
-import com.example.travels_map.data.managers.UserSessionManager
+import com.example.travels_map.data.managers.UserManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,8 +19,8 @@ class LocalModule {
 
     @Provides
     @Singleton
-    fun getUserSessionManager(): UserSessionManager {
-        return UserSessionManager()
+    fun getUserManager(): UserManager {
+        return UserManager()
     }
 
     @Provides

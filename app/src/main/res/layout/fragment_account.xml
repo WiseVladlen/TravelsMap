@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView_user_photo"
+            style="@style/ProfilePictureStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/header_profile_picture_margin"
+            android:contentDescription="@string/account.avatar_description"
+            android:src="@drawable/baseline_account_circle_96" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_username"
+                style="@style/ProfileTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView_name"
+                style="@style/ProfileSubtitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/edit_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginHorizontal="@dimen/button_horizontal_margin"
+            android:layout_marginBottom="@dimen/button_bottom_margin"
+            android:text="@string/account.edit_profile"
+            app:icon="@drawable/ic_baseline_edit_24"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/button_icon_padding" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/change_password_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginHorizontal="@dimen/button_horizontal_margin"
+            android:layout_marginTop="@dimen/button_top_margin"
+            android:text="@string/account.change_password"
+            app:icon="@drawable/ic_baseline_password_24"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/button_icon_padding" />
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/log_out_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="@dimen/button_horizontal_margin"
+        android:layout_marginBottom="@dimen/button_bottom_margin"
+        android:text="@string/account.log_out"
+        android:textColor="@color/neon_red" />
+
+</FrameLayout>

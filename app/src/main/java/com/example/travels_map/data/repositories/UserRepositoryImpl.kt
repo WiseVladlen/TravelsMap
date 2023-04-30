@@ -10,6 +10,7 @@ import com.parse.ParseObject
 import com.parse.ParseUser
 import com.parse.coroutines.parseLogIn
 import com.parse.coroutines.suspendFetch
+import com.parse.coroutines.suspendSave
 import com.parse.coroutines.suspendSignUp
 import javax.inject.Inject
 
@@ -61,6 +62,33 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun logOut(): Result<Nothing?> {
         return runCatching {
             ParseUser.logOut()
+
+            return@runCatching null
+        }
+    }
+
+    override suspend fun editProfile(username: String, fullName: String): Result<Nothing?> {
+        return runCatching {
+            val user = ParseUser.getCurrentUser().apply {
+                put(User.KEY_USERNAME, username)
+                put(User.KEY_FULL_NAME, fullName)
+                suspendSave()
+            }
+
+            userManager.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
+
+            return@runCatching null
+        }
+    }
+
+    override suspend fun changePassword(password: String): Result<Nothing?> {
+        return runCatching {
+            val user = ParseUser.getCurrentUser().apply {
+                setPassword(password)
+                suspendSave()
+            }
+
+            userManager.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
 
             return@runCatching null
         }

@@ -12,4 +12,6 @@ interface IUserRepository {
     suspend fun signUp(userData: UserRegistrationData): Result<Nothing?>
     suspend fun logIn(userData: UserLoginData): Result<Nothing?>
     suspend fun logOut(): Result<Nothing?>
+    suspend fun editProfile(username: String, fullName: String): Result<Nothing?>
+    suspend fun changePassword(password: String): Result<Nothing?>
 }

@@ -7,7 +7,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?colorPrimary</item>
         <item name="android:layout_margin">@dimen/logo_layout_margin</item>
-        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center</item>
         <item name="drawableTopCompat">@drawable/ic_two_tone_map_128</item>
     </style>
 
@@ -97,5 +97,24 @@
         <item name="android:textSize">14sp</item>
         <item name="android:layout_gravity">end|center_vertical</item>
         <item name="android:layout_marginEnd">@dimen/toolbar_action_button_end_margin</item>
+    </style>
+
+    <style name="ProfilePictureStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="ProfileTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ProfileSubtitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textStyle">normal</item>
     </style>
 </resources>
