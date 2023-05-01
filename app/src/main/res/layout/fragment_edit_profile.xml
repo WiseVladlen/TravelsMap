@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/text_vertical_margin"
         android:text="@string/edit_profile.edit_picture"
-        app:drawableTopCompat="@drawable/baseline_account_circle_96" />
+        app:drawableTopCompat="@drawable/ic_baseline_account_circle_96" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
