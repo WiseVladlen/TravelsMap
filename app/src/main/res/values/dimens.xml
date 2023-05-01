@@ -39,7 +39,7 @@
     <!-- Model content card. -->
     <dimen name="model_content_card_height">72dp</dimen>
     <dimen name="model_content_card_icon_size">72dp</dimen>
-    <dimen name="model_content_card_icon_padding">20dp</dimen>
+    <dimen name="model_content_card_icon_padding">24dp</dimen>
     <!-- Toolbar. -->
     <dimen name="toolbar_bottom_margin">12dp</dimen>
     <dimen name="toolbar_action_button_end_margin">12dp</dimen>
