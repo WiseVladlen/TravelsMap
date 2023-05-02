@@ -94,7 +94,7 @@ class GroupFragment : Fragment(R.layout.fragment_group) {
 
     private fun submitGroupData(group: Group) {
         val list = mutableListOf(
-            GroupStructureItem.HeaderStructureItem(group),
+            GroupStructureItem.HeaderItem(group),
             GroupStructureItem.ActionItem.AddParticipant(
                 Attributes(
                     R.drawable.ic_baseline_person_add_24,
@@ -113,9 +113,9 @@ class GroupFragment : Fragment(R.layout.fragment_group) {
                     R.string.group_leave,
                 )
             ),
-            GroupStructureItem.ParticipantCountStructureItem(group.participants.size),
+            GroupStructureItem.ParticipantCountItem(group.participants.size),
         )
-        list.addAll(group.participants.map { GroupStructureItem.ParticipantStructureItem(it) })
+        list.addAll(group.participants.map { GroupStructureItem.ParticipantItem(it) })
 
         groupStructureAdapter.items = list
     }

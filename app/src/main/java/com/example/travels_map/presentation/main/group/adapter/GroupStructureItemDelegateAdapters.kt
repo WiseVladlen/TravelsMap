@@ -7,7 +7,7 @@ import com.example.travels_map.databinding.TextCardLayoutBinding
 import com.example.travels_map.databinding.TextIconCardLayoutBinding
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
-fun headerAdapterDelegate() = adapterDelegateViewBinding<GroupStructureItem.HeaderStructureItem, GroupStructureItem, HeaderCardLayoutBinding>(
+fun headerAdapterDelegate() = adapterDelegateViewBinding<GroupStructureItem.HeaderItem, GroupStructureItem, HeaderCardLayoutBinding>(
     { layoutInflater, parent -> HeaderCardLayoutBinding.inflate(layoutInflater, parent, false) }
 ) {
     bind {
@@ -31,7 +31,7 @@ fun actionAdapterDelegate(onLayoutClick: (GroupStructureItem.ActionItem) -> Unit
     }
 }
 
-fun participantCountDelegate() = adapterDelegateViewBinding<GroupStructureItem.ParticipantCountStructureItem, GroupStructureItem, TextCardLayoutBinding>(
+fun participantCountDelegate() = adapterDelegateViewBinding<GroupStructureItem.ParticipantCountItem, GroupStructureItem, TextCardLayoutBinding>(
     { layoutInflater, parent -> TextCardLayoutBinding.inflate(layoutInflater, parent, false) }
 ) {
     bind {
@@ -45,7 +45,7 @@ fun participantCountDelegate() = adapterDelegateViewBinding<GroupStructureItem.P
     }
 }
 
-fun participantDelegate() = adapterDelegateViewBinding<GroupStructureItem.ParticipantStructureItem, GroupStructureItem, ModelContentCardLayoutBinding>(
+fun participantDelegate() = adapterDelegateViewBinding<GroupStructureItem.ParticipantItem, GroupStructureItem, ModelContentCardLayoutBinding>(
     { layoutInflater, parent -> ModelContentCardLayoutBinding.inflate(layoutInflater, parent, false) }
 ) {
     bind {

@@ -6,9 +6,9 @@ import com.example.travels_map.domain.entities.Group
 import com.example.travels_map.domain.entities.User
 
 sealed class GroupStructureItem {
-    class HeaderStructureItem(val group: Group) : GroupStructureItem()
-    class ParticipantCountStructureItem(val count: Int) : GroupStructureItem()
-    class ParticipantStructureItem(val user: User) : GroupStructureItem()
+    class HeaderItem(val group: Group) : GroupStructureItem()
+    class ParticipantCountItem(val count: Int) : GroupStructureItem()
+    class ParticipantItem(val user: User) : GroupStructureItem()
 
     sealed class ActionItem(val attributes: Attributes) : GroupStructureItem() {
         class AddParticipant(attributes: Attributes) : ActionItem(attributes)
