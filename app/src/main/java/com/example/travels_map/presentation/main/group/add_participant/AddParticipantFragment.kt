@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentAddParticipantBinding
-import com.example.travels_map.utils.launchWhenStarted
+import com.example.travels_map.utils.launchWhenCreated
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -48,11 +48,11 @@ class AddParticipantFragment : Fragment(R.layout.fragment_add_participant) {
                 true -> binding.contentLoadingProgressBar.show()
                 false -> binding.contentLoadingProgressBar.hide()
             }
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
 
         viewModel.groupKeyFlow.onEach { key ->
             binding.textViewGroupKey.text = key
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
     }
 
     private fun setupToolbar() {

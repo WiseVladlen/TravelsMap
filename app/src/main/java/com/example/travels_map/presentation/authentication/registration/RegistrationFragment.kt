@@ -11,6 +11,7 @@ import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentRegistrationBinding
 import com.example.travels_map.presentation.activity.MainActivity
+import com.example.travels_map.utils.hideSoftKeyboard
 import javax.inject.Inject
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
@@ -40,6 +41,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     private fun setupOnClickListeners() {
         with(binding) {
             signUpButton.setOnClickListener {
+                requireView().hideSoftKeyboard()
                 viewModel.signUp(
                     editTextUsername.text.toString(),
                     editTextFullName.text.toString(),

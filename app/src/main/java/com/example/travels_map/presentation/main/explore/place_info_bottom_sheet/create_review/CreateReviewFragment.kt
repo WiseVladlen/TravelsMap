@@ -3,7 +3,6 @@ package com.example.travels_map.presentation.main.explore.place_info_bottom_shee
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -62,7 +61,8 @@ class CreateReviewFragment : Fragment(R.layout.fragment_create_review) {
         binding.apply {
             toolbar.setNavigationOnClickListener { actionCloseFragment() }
 
-            fun createReview() {
+            postButton.setOnClickListener {
+                requireView().hideSoftKeyboard()
                 viewModel.createReview(
                     editTextReview.text.toString(),
                     ratingBar.rating.toInt(),
@@ -70,17 +70,6 @@ class CreateReviewFragment : Fragment(R.layout.fragment_create_review) {
                 ) {
                     actionCloseFragment()
                 }
-            }
-
-            postButton.setOnClickListener { createReview() }
-
-            editTextReview.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    requireView().hideSoftKeyboard()
-                    createReview()
-                    return@setOnEditorActionListener true
-                }
-                return@setOnEditorActionListener false
             }
         }
     }

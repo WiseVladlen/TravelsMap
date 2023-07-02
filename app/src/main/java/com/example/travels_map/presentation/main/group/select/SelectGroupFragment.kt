@@ -13,7 +13,7 @@ import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentSelectGroupBinding
 import com.example.travels_map.presentation.main.group.select.adapter.GroupItemDelegationAdapter
-import com.example.travels_map.utils.launchWhenStarted
+import com.example.travels_map.utils.launchWhenCreated
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -72,10 +72,10 @@ class SelectGroupFragment : Fragment(R.layout.fragment_select_group) {
                 true -> binding.contentLoadingProgressBar.show()
                 false -> binding.contentLoadingProgressBar.hide()
             }
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
 
         viewModel.groupListFlow.onEach { groupList ->
             groupAdapter.items = groupList
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
     }
 }

@@ -11,7 +11,7 @@ import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentAccountBinding
 import com.example.travels_map.presentation.activity.MainActivity
-import com.example.travels_map.utils.launchWhenStarted
+import com.example.travels_map.utils.launchWhenCreated
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -48,7 +48,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 textViewUsername.text = user.username
                 textViewName.text = user.fullName
             }
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
     }
 
     private fun setupOnClickListeners() {

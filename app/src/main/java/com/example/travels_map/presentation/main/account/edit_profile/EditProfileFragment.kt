@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentEditProfileBinding
-import com.example.travels_map.utils.launchWhenStarted
+import com.example.travels_map.utils.launchWhenCreated
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -47,7 +47,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 editTextUsername.setText(user.username)
                 editTextFullName.setText(user.fullName)
             }
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
     }
 
     private fun setupOnClickListeners() {

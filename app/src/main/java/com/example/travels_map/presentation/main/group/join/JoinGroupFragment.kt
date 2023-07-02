@@ -44,23 +44,22 @@ class JoinGroupFragment : Fragment(R.layout.fragment_join_group) {
         with(binding) {
             toolbar.setNavigationOnClickListener { navController.navigateUp() }
 
-            editTextQuery.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    requireView().hideSoftKeyboard()
-                    viewModel.joinGroup(editTextQuery.text.toString()) {
-                        navController.popBackStack(R.id.groupFragment, inclusive = false)
-                    }
-                    return@setOnEditorActionListener true
-                }
-                return@setOnEditorActionListener false
-            }
-
-            sendRequestButton.setOnClickListener {
+            fun joinGroup() {
                 requireView().hideSoftKeyboard()
                 viewModel.joinGroup(editTextQuery.text.toString()) {
                     navController.popBackStack(R.id.groupFragment, inclusive = false)
                 }
             }
+
+            editTextQuery.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    joinGroup()
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener false
+            }
+
+            sendRequestButton.setOnClickListener { joinGroup() }
         }
     }
 }

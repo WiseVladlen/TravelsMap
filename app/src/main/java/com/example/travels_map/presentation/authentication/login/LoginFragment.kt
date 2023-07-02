@@ -11,6 +11,7 @@ import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentLoginBinding
 import com.example.travels_map.presentation.activity.MainActivity
+import com.example.travels_map.utils.hideSoftKeyboard
 import javax.inject.Inject
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -40,6 +41,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun setupOnClickListeners() {
         with(binding) {
             logInButton.setOnClickListener {
+                requireView().hideSoftKeyboard()
                 viewModel.logIn(
                     editTextUsername.text.toString(),
                     editTextPassword.text.toString(),

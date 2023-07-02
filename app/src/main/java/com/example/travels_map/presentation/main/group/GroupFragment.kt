@@ -15,7 +15,7 @@ import com.example.travels_map.domain.entities.Group
 import com.example.travels_map.presentation.main.group.adapter.GroupStructureItem
 import com.example.travels_map.presentation.main.group.adapter.GroupStructureItemDelegationAdapter
 import com.example.travels_map.presentation.main.group.adapter.Attributes
-import com.example.travels_map.utils.launchWhenStarted
+import com.example.travels_map.utils.launchWhenCreated
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -43,12 +43,6 @@ class GroupFragment : Fragment(R.layout.fragment_group) {
         initializeView()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        groupStructureAdapter.items = listOf()
-    }
-
     private fun initializeView() {
         setupRecyclerView()
         observeDataChanges()
@@ -67,17 +61,17 @@ class GroupFragment : Fragment(R.layout.fragment_group) {
                 true -> binding.contentLoadingProgressBar.show()
                 false -> binding.contentLoadingProgressBar.hide()
             }
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
 
         viewModel.errorStateFlow.onEach { isError ->
             if (isError) {
                 navController.navigate(GroupFragmentDirections.actionGroupFragmentToSelectedGroupErrorFragment())
             }
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
 
         viewModel.groupFlow.onEach { group ->
             submitGroupData(group)
-        }.launchWhenStarted(viewLifecycleOwner)
+        }.launchWhenCreated(viewLifecycleOwner)
     }
 
     private fun onActionItemClick(item: GroupStructureItem.ActionItem) {
