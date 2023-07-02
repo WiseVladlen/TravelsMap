@@ -5,8 +5,11 @@ import com.example.travels_map.domain.models.UserLoginData
 import com.example.travels_map.domain.models.UserRegistrationData
 import com.parse.ParseUser
 import com.yandex.mapkit.location.Location
+import kotlinx.coroutines.flow.SharedFlow
 
 interface IUserRepository {
+    val userFlow: SharedFlow<Result<User>>
+
     fun getCurrentUser(): User?
     fun getCurrentParseUserSafely(): ParseUser?
     suspend fun fetchCurrentUser()

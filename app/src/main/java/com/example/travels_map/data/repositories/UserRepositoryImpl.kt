@@ -1,6 +1,5 @@
 package com.example.travels_map.data.repositories
 
-import com.example.travels_map.data.managers.UserManager
 import com.example.travels_map.data.mappers.IEntityMapper
 import com.example.travels_map.domain.entities.User
 import com.example.travels_map.domain.models.UserLoginData
@@ -14,13 +13,20 @@ import com.parse.coroutines.suspendFetch
 import com.parse.coroutines.suspendSave
 import com.parse.coroutines.suspendSignUp
 import com.yandex.mapkit.location.Location
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private val userManager: UserManager,
     private val userRegistrationDataToParseUserMapper: IEntityMapper<UserRegistrationData, ParseUser>,
     private val parseObjectToUserMapper: IEntityMapper<ParseObject, User>,
 ) : IUserRepository {
+
+    private val _userFlow = MutableSharedFlow<Result<User>>(1, 1, BufferOverflow.DROP_OLDEST)
+
+    override val userFlow: SharedFlow<Result<User>> = _userFlow.asSharedFlow()
 
     override fun getCurrentUser(): User? {
         return getCurrentParseUserSafely()?.let { user ->
@@ -36,7 +42,7 @@ class UserRepositoryImpl @Inject constructor(
         val result = runCatching {
             parseObjectToUserMapper.mapEntity(ParseUser.getCurrentUser().suspendFetch())
         }
-        userManager.emit(result)
+        _userFlow.emit(result)
     }
 
     override suspend fun signUp(userData: UserRegistrationData): Result<Nothing?> {
@@ -45,7 +51,7 @@ class UserRepositoryImpl @Inject constructor(
             parseUser.suspendSignUp()
 
             val user = parseObjectToUserMapper.mapEntity(ParseUser.getCurrentUser())
-            userManager.emit(Result.success(user))
+            _userFlow.emit(Result.success(user))
 
             return@runCatching null
         }
@@ -55,7 +61,7 @@ class UserRepositoryImpl @Inject constructor(
         return runCatching {
             val user = parseLogIn(userData.username, userData.password)
 
-            userManager.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
+            _userFlow.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
 
             return@runCatching null
         }
@@ -77,7 +83,7 @@ class UserRepositoryImpl @Inject constructor(
                 suspendSave()
             }
 
-            userManager.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
+            _userFlow.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
 
             return@runCatching null
         }
@@ -90,7 +96,7 @@ class UserRepositoryImpl @Inject constructor(
                 suspendSave()
             }
 
-            userManager.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
+            _userFlow.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
 
             return@runCatching null
         }

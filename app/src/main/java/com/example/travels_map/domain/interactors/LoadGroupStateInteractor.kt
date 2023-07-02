@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class LoadGroupStateInteractor @Inject constructor(private val groupRepository: IGroupRepository) {
 
-    fun run() = groupRepository.getFlow()
+    fun run() = groupRepository.groupFlow
 }

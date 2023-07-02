@@ -6,8 +6,8 @@ import com.example.travels_map.domain.entities.User
 import kotlinx.coroutines.flow.SharedFlow
 
 interface IGroupRepository {
+    val groupFlow: SharedFlow<Result<Group>>
     val participantsLocationFlow: SharedFlow<kotlin.Result<List<User>>>
-    fun getFlow(): SharedFlow<Result<Group>>
 
     suspend fun load()
     suspend fun loadAll(): Result<List<Group>>

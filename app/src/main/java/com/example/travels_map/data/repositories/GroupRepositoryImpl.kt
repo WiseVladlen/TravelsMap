@@ -2,7 +2,6 @@ package com.example.travels_map.data.repositories
 
 import android.content.Context
 import com.example.travels_map.R
-import com.example.travels_map.data.managers.GroupManager
 import com.example.travels_map.data.mappers.IEntityMapper
 import com.example.travels_map.domain.common.Result
 import com.example.travels_map.domain.common.runWithExceptionCatching
@@ -25,17 +24,18 @@ import javax.inject.Inject
 
 class GroupRepositoryImpl @Inject constructor(
     private val context: Context,
-    private val groupManager: GroupManager,
     private val userRepository: IUserRepository,
     private val parseObjectToGroupMapper: IEntityMapper<ParseObject, Group>,
     private val parseObjectToUserMapper: IEntityMapper<ParseObject, User>,
 ) : IGroupRepository {
 
+    private val _groupFlow = MutableSharedFlow<Result<Group>>(1, 1, BufferOverflow.DROP_OLDEST)
+
+    override val groupFlow = _groupFlow.asSharedFlow()
+
     private val _participantsLocationFlow = MutableSharedFlow<kotlin.Result<List<User>>>(0, 1, BufferOverflow.DROP_OLDEST)
 
     override val participantsLocationFlow: SharedFlow<kotlin.Result<List<User>>> = _participantsLocationFlow.asSharedFlow()
-
-    override fun getFlow(): SharedFlow<Result<Group>> = groupManager.groupFlow
 
     override suspend fun load() {
         val result = runWithExceptionCatching {
@@ -52,7 +52,8 @@ class GroupRepositoryImpl @Inject constructor(
 
             return@runWithExceptionCatching parseObjectToGroupMapper.mapEntity(group)
         }
-        groupManager.emit(result)
+
+        _groupFlow.emit(result)
     }
 
     override suspend fun loadAll(): Result<List<Group>> {
@@ -89,7 +90,8 @@ class GroupRepositoryImpl @Inject constructor(
 
             return@runWithExceptionCatching group
         }
-        groupManager.emit(result)
+
+        _groupFlow.emit(result)
     }
 
     override suspend fun join(query: String) {
@@ -125,7 +127,8 @@ class GroupRepositoryImpl @Inject constructor(
 
             return@runWithExceptionCatching parseObjectToGroupMapper.mapEntity(group)
         }
-        groupManager.emit(result)
+
+        _groupFlow.emit(result)
     }
 
     override suspend fun leave() {
@@ -152,13 +155,13 @@ class GroupRepositoryImpl @Inject constructor(
 
             requestParticipantsLocation()
 
-            groupManager.emit(Result.Error(Exception()))
+            _groupFlow.emit(Result.Error(Exception()))
         }
     }
 
     override suspend fun loadKey(): Result<String> {
         return runWithExceptionCatching {
-            return@runWithExceptionCatching when (val groupResult = groupManager.groupFlow.first()) {
+            return@runWithExceptionCatching when (val groupResult = groupFlow.first()) {
                 is Result.Error -> throw Exception()
                 is Result.Success -> context.getString(
                     R.string.add_participant_group_key,
@@ -179,7 +182,7 @@ class GroupRepositoryImpl @Inject constructor(
                 suspendSave()
             }
 
-            groupManager.emit(Result.Success(parseObjectToGroupMapper.mapEntity(group)))
+            _groupFlow.emit(Result.Success(parseObjectToGroupMapper.mapEntity(group)))
 
             user.put(User.KEY_SELECTED_GROUP_ID, group.objectId)
             user.suspendSave()
