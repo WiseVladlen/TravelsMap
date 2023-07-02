@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/LightWindowStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_baseline_close_24" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/create_review.container_vertical_padding">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/RatingBarNormalStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/rating_bar_normal_vertical_margin" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_review"
+                style="@style/EditTextOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/text_input_layout_horizontal_margin"
+                android:layout_marginVertical="@dimen/text_input_layout_vertical_margin"
+                android:hint="@string/create_review.share_your_experience_hint"
+                android:inputType="text|textMultiLine"
+                android:minLines="3">
+
+                <requestFocus />
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/post_button"
+        style="@style/MaterialButtonBlueStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/button_horizontal_margin"
+        android:layout_marginVertical="@dimen/button_vertical_margin"
+        android:text="@string/create_review.post" />
+
+</LinearLayout>

@@ -6,12 +6,14 @@ import com.example.travels_map.domain.entities.User
 import com.example.travels_map.domain.models.UserLoginData
 import com.example.travels_map.domain.models.UserRegistrationData
 import com.example.travels_map.domain.repositories.IUserRepository
+import com.parse.ParseGeoPoint
 import com.parse.ParseObject
 import com.parse.ParseUser
 import com.parse.coroutines.parseLogIn
 import com.parse.coroutines.suspendFetch
 import com.parse.coroutines.suspendSave
 import com.parse.coroutines.suspendSignUp
+import com.yandex.mapkit.location.Location
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -89,6 +91,17 @@ class UserRepositoryImpl @Inject constructor(
             }
 
             userManager.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
+
+            return@runCatching null
+        }
+    }
+
+    override suspend fun updateLocation(location: Location): Result<Nothing?> {
+        return runCatching {
+            ParseUser.getCurrentUser().apply {
+                put(User.KEY_LOCATION, ParseGeoPoint(location.position.latitude, location.position.longitude))
+                suspendSave()
+            }
 
             return@runCatching null
         }

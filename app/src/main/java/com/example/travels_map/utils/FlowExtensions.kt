@@ -16,4 +16,6 @@ fun <T> Flow<T>.launch(owner: LifecycleOwner, state: Lifecycle.State) {
     }
 }
 
+fun <T> Flow<T>.launchWhenCreated(owner: LifecycleOwner) = launch(owner, Lifecycle.State.CREATED)
+
 fun <T> Flow<T>.launchWhenStarted(owner: LifecycleOwner) = launch(owner, Lifecycle.State.STARTED)

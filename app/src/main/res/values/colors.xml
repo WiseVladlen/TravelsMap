@@ -7,5 +7,9 @@
     <color name="blue_de_france">#3C96FF</color>
     <color name="boeing_blue">#003CA0</color>
     <color name="dark_gray">#A9A9A9</color>
+    <color name="gainsboro">#DCDCDC</color>
+    <color name="dim_gray">#696969</color>
     <color name="neon_red">#FF3131</color>
+    <color name="charcoal">#374650</color>
+    <color name="dark_pastel_green">#03C03C</color>
 </resources>

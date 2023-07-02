@@ -4,6 +4,7 @@ import com.example.travels_map.domain.entities.User
 import com.example.travels_map.domain.models.UserLoginData
 import com.example.travels_map.domain.models.UserRegistrationData
 import com.parse.ParseUser
+import com.yandex.mapkit.location.Location
 
 interface IUserRepository {
     fun getCurrentUser(): User?
@@ -14,4 +15,5 @@ interface IUserRepository {
     suspend fun logOut(): Result<Nothing?>
     suspend fun editProfile(username: String, fullName: String): Result<Nothing?>
     suspend fun changePassword(password: String): Result<Nothing?>
+    suspend fun updateLocation(location: Location): Result<Nothing?>
 }

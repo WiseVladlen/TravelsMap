@@ -16,7 +16,10 @@ import com.parse.ParseUser
 import com.parse.coroutines.getById
 import com.parse.coroutines.suspendFind
 import com.parse.coroutines.suspendSave
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -25,7 +28,12 @@ class GroupRepositoryImpl @Inject constructor(
     private val groupManager: GroupManager,
     private val userRepository: IUserRepository,
     private val parseObjectToGroupMapper: IEntityMapper<ParseObject, Group>,
+    private val parseObjectToUserMapper: IEntityMapper<ParseObject, User>,
 ) : IGroupRepository {
+
+    private val _participantsLocationFlow = MutableSharedFlow<kotlin.Result<List<User>>>(0, 1, BufferOverflow.DROP_OLDEST)
+
+    override val participantsLocationFlow: SharedFlow<kotlin.Result<List<User>>> = _participantsLocationFlow.asSharedFlow()
 
     override fun getFlow(): SharedFlow<Result<Group>> = groupManager.groupFlow
 
@@ -77,6 +85,8 @@ class GroupRepositoryImpl @Inject constructor(
             currentUser.put(User.KEY_SELECTED_GROUP_ID, group.id)
             currentUser.suspendSave()
 
+            requestParticipantsLocation()
+
             return@runWithExceptionCatching group
         }
         groupManager.emit(result)
@@ -111,6 +121,8 @@ class GroupRepositoryImpl @Inject constructor(
             user.put(User.KEY_SELECTED_GROUP_ID, group.objectId)
             user.suspendSave()
 
+            requestParticipantsLocation()
+
             return@runWithExceptionCatching parseObjectToGroupMapper.mapEntity(group)
         }
         groupManager.emit(result)
@@ -137,6 +149,8 @@ class GroupRepositoryImpl @Inject constructor(
 
             user.put(User.KEY_SELECTED_GROUP_ID, String())
             user.suspendSave()
+
+            requestParticipantsLocation()
 
             groupManager.emit(Result.Error(Exception()))
         }
@@ -169,6 +183,31 @@ class GroupRepositoryImpl @Inject constructor(
 
             user.put(User.KEY_SELECTED_GROUP_ID, group.objectId)
             user.suspendSave()
+
+            requestParticipantsLocation()
         }
+    }
+
+    override suspend fun requestParticipantsLocation() {
+        val result = kotlin.runCatching {
+            val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
+
+            val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
+                whereEqualTo(User.KEY_OBJECT_ID, currentUser.objectId)
+                return@with first
+            }
+
+            val selectedGroupId = user.getString(User.KEY_SELECTED_GROUP_ID) ?: throw Exception()
+
+            val group = ParseQuery<ParseObject>(Group.CLASS_NAME).getById(selectedGroupId)
+
+            val participantList = with(ParseQuery<ParseObject>(Group.CLASS_NAME).getById(group.objectId)) {
+                return@with getRelation<ParseUser>(Group.KEY_PARTICIPANTS).query.suspendFind()
+            }
+
+            return@runCatching participantList.map { parseObjectToUserMapper.mapEntity(it) }
+        }
+
+        _participantsLocationFlow.emit(result)
     }
 }

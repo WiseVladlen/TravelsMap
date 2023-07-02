@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/LightWindowStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -28,7 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/text_input_layout_height"
         android:layout_marginHorizontal="@dimen/text_input_layout_horizontal_margin"
-        android:layout_marginTop="@dimen/text_input_layout_top_margin">
+        android:layout_marginTop="@dimen/text_input_layout_top_margin"
+        android:hint="@string/manage_element_title.hint">
+
+        <requestFocus />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_name"

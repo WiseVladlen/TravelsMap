@@ -17,6 +17,12 @@
     <dimen name="button_top_margin">12dp</dimen>
     <dimen name="button_bottom_margin">12dp</dimen>
     <dimen name="button_icon_padding">8dp</dimen>
+    <!-- Image button. -->
+    <dimen name="image_button_small_size">48dp</dimen>
+    <dimen name="image_button_normal_size">56dp</dimen>
+    <dimen name="image_button_top_margin">4dp</dimen>
+    <dimen name="image_button_start_margin">4dp</dimen>
+    <dimen name="image_button_end_margin">4dp</dimen>
     <!-- Bottom card. -->
     <dimen name="bottom_card_height">56dp</dimen>
     <!-- Action text. -->
@@ -47,4 +53,49 @@
     <dimen name="toolbar_action_button_vertical_padding">8dp</dimen>
     <!-- Header profile picture. -->
     <dimen name="header_profile_picture_margin">12dp</dimen>
+    <!-- Chip group. -->
+    <dimen name="chip_group_height">56dp</dimen>
+    <!-- Chip. -->
+    <dimen name="chip_start_padding">8dp</dimen>
+    <dimen name="chip_end_padding">8dp</dimen>
+    <!-- Rating bar. -->
+    <dimen name="rating_bar_small_horizontal_margin">4dp</dimen>
+    <dimen name="rating_bar_small_bottom_margin">4dp</dimen>
+    <dimen name="rating_bar_normal_vertical_margin">12dp</dimen>
+    <!-- Rating card. -->
+    <dimen name="rating_card_vertical_padding">8dp</dimen>
+    <dimen name="rating_card_horizontal_padding">16dp</dimen>
+    <!-- Rate and review card. -->
+    <dimen name="rate_and_review_card_vertical_padding">16dp</dimen>
+    <dimen name="rate_and_review_card_horizontal_padding">16dp</dimen>
+    <!-- Rate and review card content. -->
+    <dimen name="rate_and_review_card.title_vertical_padding">4dp</dimen>
+    <dimen name="rate_and_review_card.subtitle_bottom_margin">12dp</dimen>
+    <!-- Review card. -->
+    <dimen name="review_card_vertical_padding">8dp</dimen>
+    <!-- Review card content. -->
+    <dimen name="review_card.header_horizontal_padding">16dp</dimen>
+    <dimen name="review_card.user_avatar_size">48dp</dimen>
+    <dimen name="review_card.user_avatar_end_margin">12dp</dimen>
+    <dimen name="review_card.rating_horizontal_padding">16dp</dimen>
+    <dimen name="review_card.rating_vertical_padding">4dp</dimen>
+    <dimen name="review_card.rating_end_margin">4dp</dimen>
+    <dimen name="review_card.text_horizontal_padding">16dp</dimen>
+    <!-- Bottom sheet. -->
+    <dimen name="bottom_sheet_drag_handle_view_height">8dp</dimen>
+    <dimen name="bottom_sheet_initial_peek_height">0dp</dimen>
+    <!-- Manage placeLabel bottom sheet. -->
+    <dimen name="manage_label_bottom_sheet.header_card_size">64dp</dimen>
+    <dimen name="manage_label_bottom_sheet.header_info_top_margin">12dp</dimen>
+    <dimen name="manage_label_bottom_sheet.header_info_horizontal_margin">16dp</dimen>
+    <dimen name="manage_label_bottom_sheet.header_info.title_bottom_margin">4dp</dimen>
+    <dimen name="manage_label_bottom_sheet.chip_group_horizontal_padding">16dp</dimen>
+    <!-- Route configuration top sheet. -->
+    <dimen name="route_configuration.header_info_horizontal_margin">16dp</dimen>
+    <dimen name="route_configuration.header_info_vertical_margin">16dp</dimen>
+    <dimen name="route_configuration.subhead_card_size">56dp</dimen>
+    <dimen name="route_configuration.subhead_card_title_padding_horizontal">20dp</dimen>
+    <dimen name="route_configuration.subhead_card_subtitle_start_margin">8dp</dimen>
+    <!-- Create review sheet. -->
+    <dimen name="create_review.container_vertical_padding">12dp</dimen>
 </resources>

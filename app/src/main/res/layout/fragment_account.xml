@@ -72,12 +72,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/log_out_button"
+        style="@style/MaterialButtonRedStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="@dimen/button_horizontal_margin"
         android:layout_marginBottom="@dimen/button_bottom_margin"
-        android:text="@string/account.log_out"
-        android:textColor="@color/neon_red" />
+        android:text="@string/account.log_out" />
 
 </FrameLayout>

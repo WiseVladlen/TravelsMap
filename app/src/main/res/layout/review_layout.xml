@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/review_card_vertical_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/review_card.header_horizontal_padding">
+
+        <ImageView
+            android:id="@+id/imageView_avatar"
+            style="@style/ReviewCardUserAvatarStyle"
+            android:layout_width="@dimen/review_card.user_avatar_size"
+            android:layout_height="@dimen/review_card.user_avatar_size"
+            android:contentDescription="@string/review_layout.avatar_description" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_title"
+                style="@style/ReviewCardTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView_subtitle"
+                style="@style/ReviewCardSubtitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/review_card.rating_horizontal_padding"
+        android:paddingVertical="@dimen/review_card.rating_vertical_padding">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/RatingBarSmallStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/review_card.rating_end_margin" />
+
+        <TextView
+            android:id="@+id/textView_date"
+            style="@style/ReviewCardRatingDateStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_review_text"
+        style="@style/ReviewCardTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/review_card.text_horizontal_padding" />
+
+</LinearLayout>

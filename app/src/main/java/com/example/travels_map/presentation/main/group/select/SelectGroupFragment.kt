@@ -60,7 +60,7 @@ class SelectGroupFragment : Fragment(R.layout.fragment_select_group) {
         val dividerItemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
 
         binding.availableGroupsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = linearLayoutManager
             adapter = groupAdapter
             addItemDecoration(dividerItemDecoration)
         }

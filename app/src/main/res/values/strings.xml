@@ -39,6 +39,7 @@
     <string name="join_group.query_hint">Group name#xxxxxxxxxx</string>
     <!-- Manage element title screen. -->
     <string name="manage_element_title.done">Done</string>
+    <string name="manage_element_title.hint">Enter a custom name</string>
     <!-- Create group screen. -->
     <string name="create_group.title">Create a group</string>
     <string name="create_group.group_name_hint">Group name</string>
@@ -73,4 +74,75 @@
     <string name="edit_profile.username">Username</string>
     <string name="edit_profile.full_name">Full Name</string>
     <string name="edit_profile.blank">&#160;</string>
+    <!-- Manage placeLabel screen. -->
+    <string name="manage_label.no_name">No name</string>
+    <!-- Manage placeLabel screen. Buttons. -->
+    <string name="manage_label.close_button_description">Close button</string>
+    <!-- Manage placeLabel screen. Chips. -->
+    <string name="manage_label.chip_route">Route</string>
+    <string name="manage_label.chip_label">Label</string>
+    <!-- Manage placeLabel screen. Tab items. -->
+    <string name="manage_label.tab_item_overview">Overview</string>
+    <string name="manage_label.tab_item_reviews">Reviews</string>
+    <!-- Rating layout. -->
+    <string name="rating.number_of_reviews">(%1$s)</string>
+    <!-- Rate and review layout. -->
+    <string name="rate_and_review.title">Rate and review</string>
+    <string name="rate_and_review.share_your_experience">Share your experience to help others</string>
+    <!-- Review layout. -->
+    <string name="review_layout.avatar_description">User avatar</string>
+    <!-- Place coordinates layout. -->
+    <string name="place_coordinates.pattern">%1$s, %2$s</string>
+    <!-- Route configuration screen. -->
+    <string name="route_configuration.title">Choose locations</string>
+    <string name="route_configuration.subtitle">Tap on the map to add a stop and vice versa</string>
+    <string name="route_configuration.total_trip_time">Total trip: %1$s</string>
+    <string name="route_configuration.total_trip_distance">(%1$s)</string>
+    <!-- Driving route error messages. -->
+    <string name="driving_route_error_message.unknown">Unknown error</string>
+    <string name="driving_route_error_message.remote">Remote error</string>
+    <string name="driving_route_error_message.network">Network error</string>
+    <!-- Manage place screen. -->
+    <string name="manage_place.create">Create place</string>
+    <string name="manage_place.edit">Edit place</string>
+    <!-- Create review sheet. -->
+    <string name="create_review.post">Post</string>
+    <string name="create_review.share_your_experience_hint">Share details of your experience at this place</string>
+    <!-- Manage route name screen. -->
+    <string name="manage_route_name.title">Create a route</string>
+    <!-- Save route dialog screen. -->
+    <string name="save_route.message">Save the selected route locally?</string>
+    <string name="save_route.positive">Save</string>
+    <string name="save_route.negative">Cancel</string>
+    <string name="save_route.callback">«%1$s» route has been locally saved</string>
+    <!-- DateTime utils. -->
+    <string name="time.just_now">just now</string>
+    <plurals name="time.seconds_ago">
+        <item quantity="one">%d second ago</item>
+        <item quantity="other">%d seconds ago</item>
+    </plurals>
+    <plurals name="time.minutes_ago">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="time.hours_ago">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <plurals name="time.days_ago">
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+    <plurals name="time.weeks_ago">
+        <item quantity="one">%d week ago</item>
+        <item quantity="other">%d weeks ago</item>
+    </plurals>
+    <plurals name="time.months_ago">
+        <item quantity="one">%d month ago</item>
+        <item quantity="other">%d months ago</item>
+    </plurals>
+    <plurals name="time.years_ago">
+        <item quantity="one">%d year ago</item>
+        <item quantity="other">%d years ago</item>
+    </plurals>
 </resources>

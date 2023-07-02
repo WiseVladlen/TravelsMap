@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/rating_card_horizontal_padding"
+    android:paddingVertical="@dimen/rating_card_vertical_padding">
+
+    <TextView
+        android:id="@+id/textView_rating"
+        style="@style/RatingCardTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/RatingBarSmallStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/rating_bar_small_bottom_margin" />
+
+    <TextView
+        android:id="@+id/textView_number_of_reviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

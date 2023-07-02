@@ -12,6 +12,7 @@ import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.databinding.FragmentManageElementTitleBinding
 import com.example.travels_map.utils.hideSoftKeyboard
+import com.example.travels_map.utils.showSoftKeyboard
 import javax.inject.Inject
 
 class CreateGroupFragment : Fragment(R.layout.fragment_manage_element_title) {
@@ -38,7 +39,7 @@ class CreateGroupFragment : Fragment(R.layout.fragment_manage_element_title) {
 
     private fun initializeView() {
         setupToolbar()
-        setupTextInputLayout()
+        setupEditText()
         setupOnClickListeners()
     }
 
@@ -46,8 +47,8 @@ class CreateGroupFragment : Fragment(R.layout.fragment_manage_element_title) {
         binding.toolbar.title = getString(R.string.create_group_title)
     }
 
-    private fun setupTextInputLayout() {
-        binding.textInputLayoutName.hint = getString(R.string.create_group_group_name_hint)
+    private fun setupEditText() {
+        binding.editTextName.showSoftKeyboard()
     }
 
     private fun setupOnClickListeners() {

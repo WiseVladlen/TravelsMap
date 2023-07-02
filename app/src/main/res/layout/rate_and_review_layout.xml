@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/rate_and_review_card_horizontal_padding"
+    android:paddingVertical="@dimen/rate_and_review_card_vertical_padding">
+
+    <TextView
+        style="@style/RateAndReviewCardTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/rate_and_review_card.title_vertical_padding"
+        android:text="@string/rate_and_review.title" />
+
+    <TextView
+        style="@style/RateAndReviewCardSubtitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/rate_and_review_card.subtitle_bottom_margin"
+        android:text="@string/rate_and_review.share_your_experience" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/RatingBarNormalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
