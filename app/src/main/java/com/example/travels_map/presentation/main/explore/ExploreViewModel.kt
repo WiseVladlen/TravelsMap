@@ -9,11 +9,11 @@ import com.example.travels_map.domain.entities.User
 import com.example.travels_map.domain.interactors.LoadDrivingRouteFlowInteractor
 import com.example.travels_map.domain.interactors.LoadPlaceListFlowInteractor
 import com.example.travels_map.domain.interactors.LoadDrivingRouteListFlowInteractor
-import com.example.travels_map.domain.interactors.LoadParticipantsLocationFlow
+import com.example.travels_map.domain.interactors.LoadGroupParticipantListFlow
 import com.example.travels_map.domain.interactors.RequestDrivingRouteInteractor
 import com.example.travels_map.domain.interactors.RequestPlaceListInteractor
 import com.example.travels_map.domain.interactors.RequestDrivingRouteListFlowInteractor
-import com.example.travels_map.domain.interactors.RequestParticipantsLocationInteractor
+import com.example.travels_map.domain.interactors.RequestGroupParticipantListInteractor
 import com.example.travels_map.domain.interactors.UpdateUserLocationInteractor
 import com.yandex.mapkit.directions.driving.DrivingRoute
 import com.yandex.mapkit.geometry.Point
@@ -33,18 +33,18 @@ class ExploreViewModel(
     private val loadDrivingRouteFlowInteractor: LoadDrivingRouteFlowInteractor,
     private val loadDrivingRouteListFlowInteractor: LoadDrivingRouteListFlowInteractor,
     private val loadPlaceListFlowInteractor: LoadPlaceListFlowInteractor,
-    private val loadParticipantsLocationFlow: LoadParticipantsLocationFlow,
+    private val loadGroupParticipantListFlow: LoadGroupParticipantListFlow,
     private val requestDrivingRouteInteractor: RequestDrivingRouteInteractor,
     private val requestDrivingRouteListFlowInteractor: RequestDrivingRouteListFlowInteractor,
     private val requestPlaceListInteractor: RequestPlaceListInteractor,
-    private val requestParticipantsLocationInteractor: RequestParticipantsLocationInteractor,
+    private val requestGroupParticipantListInteractor: RequestGroupParticipantListInteractor,
     private val updateUserLocationInteractor: UpdateUserLocationInteractor,
 ) : ViewModel() {
 
     private val jobLoadDrivingRoute: CompletableJob = SupervisorJob()
     private val jobLoadRouteList: CompletableJob = SupervisorJob()
     private val jobLoadPlaceLabelList: CompletableJob = SupervisorJob()
-    private val jobLoadParticipantsLocation: CompletableJob = SupervisorJob()
+    private val jobLoadGroupParticipantList: CompletableJob = SupervisorJob()
 
     private val _drivingRouteFlow = MutableSharedFlow<DrivingRoute>(1, 1, BufferOverflow.DROP_OLDEST)
     val drivingRouteFlow = _drivingRouteFlow.asSharedFlow()
@@ -55,8 +55,8 @@ class ExploreViewModel(
     private val _placeListFlow = MutableSharedFlow<List<Place>>(1, 1, BufferOverflow.DROP_OLDEST)
     val placeListFlow = _placeListFlow.asSharedFlow()
 
-    private val _participantsLocationFlow = MutableSharedFlow<List<User>>(1, 1, BufferOverflow.DROP_OLDEST)
-    val participantsLocationFlow = _participantsLocationFlow.asSharedFlow()
+    private val _groupParticipantListFlow = MutableSharedFlow<List<User>>(1, 1, BufferOverflow.DROP_OLDEST)
+    val groupParticipantListFlow = _groupParticipantListFlow.asSharedFlow()
 
     private val drivingRoutePoints = mutableListOf<Point>()
 
@@ -76,7 +76,7 @@ class ExploreViewModel(
         loadDrivingRoute()
         loadRouteListFlow()
         loadPlaceListFlow()
-        loadParticipantsLocationFlow()
+        loadGroupParticipantListFlow()
     }
 
     fun savePoint(point: Point) {
@@ -101,7 +101,7 @@ class ExploreViewModel(
         viewModelScope.launch {
             updateUserLocationInteractor.run(location)
                 .onFailure {  }
-                .onSuccess { requestParticipantsLocationInteractor.run() }
+                .onSuccess { requestGroupParticipantListInteractor.run() }
         }
     }
 
@@ -144,14 +144,14 @@ class ExploreViewModel(
         }
     }
 
-    private fun loadParticipantsLocationFlow() {
-        viewModelScope.launch(Dispatchers.IO + jobLoadParticipantsLocation) {
-            loadParticipantsLocationFlow.run()
-                .onSubscription { requestParticipantsLocationInteractor.run() }
+    private fun loadGroupParticipantListFlow() {
+        viewModelScope.launch(Dispatchers.IO + jobLoadGroupParticipantList) {
+            loadGroupParticipantListFlow.run()
+                .onSubscription { requestGroupParticipantListInteractor.run() }
                 .collect { result ->
                     result
                         .onFailure {  }
-                        .onSuccess { _participantsLocationFlow.emit(it) }
+                        .onSuccess { _groupParticipantListFlow.emit(it) }
                 }
         }
     }
@@ -161,7 +161,7 @@ class ExploreViewModel(
         jobLoadDrivingRoute.cancel()
         jobLoadRouteList.cancel()
         jobLoadPlaceLabelList.cancel()
-        jobLoadParticipantsLocation.cancel()
+        jobLoadGroupParticipantList.cancel()
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -169,11 +169,11 @@ class ExploreViewModel(
         private val loadDrivingRouteFlowInteractor: Provider<LoadDrivingRouteFlowInteractor>,
         private val loadDrivingRouteListFlowInteractor: Provider<LoadDrivingRouteListFlowInteractor>,
         private val loadPlaceListFlowInteractor: Provider<LoadPlaceListFlowInteractor>,
-        private val loadParticipantsLocationFlow: Provider<LoadParticipantsLocationFlow>,
+        private val loadGroupParticipantListFlow: Provider<LoadGroupParticipantListFlow>,
         private val requestDrivingRouteInteractor: Provider<RequestDrivingRouteInteractor>,
         private val requestDrivingRouteListFlowInteractor: Provider<RequestDrivingRouteListFlowInteractor>,
         private val requestPlaceListInteractor: Provider<RequestPlaceListInteractor>,
-        private val requestParticipantsLocationInteractor: Provider<RequestParticipantsLocationInteractor>,
+        private val requestGroupParticipantListInteractor: Provider<RequestGroupParticipantListInteractor>,
         private val updateUserLocationInteractor: Provider<UpdateUserLocationInteractor>,
     ) : ViewModelProvider.Factory {
 
@@ -182,11 +182,11 @@ class ExploreViewModel(
                 loadDrivingRouteFlowInteractor.get(),
                 loadDrivingRouteListFlowInteractor.get(),
                 loadPlaceListFlowInteractor.get(),
-                loadParticipantsLocationFlow.get(),
+                loadGroupParticipantListFlow.get(),
                 requestDrivingRouteInteractor.get(),
                 requestDrivingRouteListFlowInteractor.get(),
                 requestPlaceListInteractor.get(),
-                requestParticipantsLocationInteractor.get(),
+                requestGroupParticipantListInteractor.get(),
                 updateUserLocationInteractor.get(),
             ) as T
         }

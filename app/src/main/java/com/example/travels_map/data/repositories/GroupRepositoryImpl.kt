@@ -31,9 +31,9 @@ class GroupRepositoryImpl @Inject constructor(
 
     override val groupFlow = _groupFlow.asSharedFlow()
 
-    private val _participantsLocationFlow = MutableSharedFlow<Result<List<User>>>(0, 1, BufferOverflow.DROP_OLDEST)
+    private val _groupParticipantListFlow = MutableSharedFlow<Result<List<User>>>(1, 1, BufferOverflow.DROP_OLDEST)
 
-    override val participantsLocationFlow: SharedFlow<Result<List<User>>> = _participantsLocationFlow.asSharedFlow()
+    override val groupParticipantListFlow: SharedFlow<Result<List<User>>> = _groupParticipantListFlow.asSharedFlow()
 
     override suspend fun load() {
         val result = runCatching {
@@ -63,17 +63,15 @@ class GroupRepositoryImpl @Inject constructor(
                 return@with first
             }
 
-            val groupQuery = ParseQuery<ParseObject>(Group.CLASS_NAME).apply {
+            val selectedGroupId = user.getString(User.KEY_SELECTED_GROUP_ID) ?: throw Exception()
+
+            val availableGroupList = with(ParseQuery<ParseObject>(Group.CLASS_NAME)) {
                 whereEqualTo(Group.KEY_PARTICIPANTS, user)
-
-                user.getString(User.KEY_SELECTED_GROUP_ID)?.let { selectedGroupId ->
-                    whereNotEqualTo(Group.KEY_OBJECT_ID, selectedGroupId)
-                }
+                whereNotEqualTo(Group.KEY_OBJECT_ID, selectedGroupId)
+                return@with suspendFind()
             }
 
-            return@runCatching groupQuery.suspendFind().map { group ->
-                parseObjectToGroupMapper.mapEntity(group)
-            }
+            return@runCatching availableGroupList.map { parseObjectToGroupMapper.mapEntity(it)}
         }
     }
 
@@ -103,13 +101,12 @@ class GroupRepositoryImpl @Inject constructor(
 
             val splitQuery = query.split('#')
 
-            val groupQuery = ParseQuery<ParseObject>(Group.CLASS_NAME).apply {
+            val groupList = with(ParseQuery<ParseObject>(Group.CLASS_NAME)) {
                 whereEqualTo(Group.KEY_NAME, splitQuery[0])
                 whereEqualTo(Group.KEY_OBJECT_ID, splitQuery[1])
                 whereNotEqualTo(Group.KEY_PARTICIPANTS, user)
+                return@with suspendFind()
             }
-
-            val groupList = groupQuery.suspendFind()
 
             if (groupList.isEmpty()) throw Exception()
 
@@ -197,13 +194,11 @@ class GroupRepositoryImpl @Inject constructor(
 
             val group = ParseQuery<ParseObject>(Group.CLASS_NAME).getById(selectedGroupId)
 
-            val participantList = with(ParseQuery<ParseObject>(Group.CLASS_NAME).getById(group.objectId)) {
-                return@with getRelation<ParseUser>(Group.KEY_PARTICIPANTS).query.suspendFind()
-            }
+            val participantList = group.getRelation<ParseUser>(Group.KEY_PARTICIPANTS).query.suspendFind()
 
             return@runCatching participantList.map { parseObjectToUserMapper.mapEntity(it) }
         }
 
-        _participantsLocationFlow.emit(result)
+        _groupParticipantListFlow.emit(result)
     }
 }

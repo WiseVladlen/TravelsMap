@@ -190,7 +190,7 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
             mapController.addRouteList(result)
         }.launchWhenCreated(this)
 
-        viewModel.participantsLocationFlow.onEach { result ->
+        viewModel.groupParticipantListFlow.onEach { result ->
             mapController.addUserList(result)
         }.launchWhenCreated(this)
 

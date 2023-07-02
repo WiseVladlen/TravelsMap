@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.SharedFlow
 
 interface IGroupRepository {
     val groupFlow: SharedFlow<Result<Group?>>
-    val participantsLocationFlow: SharedFlow<Result<List<User>>>
+    val groupParticipantListFlow: SharedFlow<Result<List<User>>>
 
     suspend fun load()
     suspend fun loadAll(): Result<List<Group>>
