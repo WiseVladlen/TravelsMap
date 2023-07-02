@@ -3,8 +3,6 @@ package com.example.travels_map.data.repositories
 import android.content.Context
 import com.example.travels_map.R
 import com.example.travels_map.data.mappers.IEntityMapper
-import com.example.travels_map.domain.common.Result
-import com.example.travels_map.domain.common.runWithExceptionCatching
 import com.example.travels_map.domain.entities.Group
 import com.example.travels_map.domain.entities.User
 import com.example.travels_map.domain.repositories.IGroupRepository
@@ -29,16 +27,16 @@ class GroupRepositoryImpl @Inject constructor(
     private val parseObjectToUserMapper: IEntityMapper<ParseObject, User>,
 ) : IGroupRepository {
 
-    private val _groupFlow = MutableSharedFlow<Result<Group>>(1, 1, BufferOverflow.DROP_OLDEST)
+    private val _groupFlow = MutableSharedFlow<Result<Group?>>(1, 1, BufferOverflow.DROP_OLDEST)
 
     override val groupFlow = _groupFlow.asSharedFlow()
 
-    private val _participantsLocationFlow = MutableSharedFlow<kotlin.Result<List<User>>>(0, 1, BufferOverflow.DROP_OLDEST)
+    private val _participantsLocationFlow = MutableSharedFlow<Result<List<User>>>(0, 1, BufferOverflow.DROP_OLDEST)
 
-    override val participantsLocationFlow: SharedFlow<kotlin.Result<List<User>>> = _participantsLocationFlow.asSharedFlow()
+    override val participantsLocationFlow: SharedFlow<Result<List<User>>> = _participantsLocationFlow.asSharedFlow()
 
     override suspend fun load() {
-        val result = runWithExceptionCatching {
+        val result = runCatching {
             val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
@@ -50,14 +48,14 @@ class GroupRepositoryImpl @Inject constructor(
 
             val group = ParseQuery<ParseObject>(Group.CLASS_NAME).getById(selectedGroupId)
 
-            return@runWithExceptionCatching parseObjectToGroupMapper.mapEntity(group)
+            return@runCatching parseObjectToGroupMapper.mapEntity(group)
         }
 
         _groupFlow.emit(result)
     }
 
     override suspend fun loadAll(): Result<List<Group>> {
-        return runWithExceptionCatching {
+        return runCatching {
             val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
@@ -73,14 +71,14 @@ class GroupRepositoryImpl @Inject constructor(
                 }
             }
 
-            return@runWithExceptionCatching groupQuery.suspendFind().map { group ->
+            return@runCatching groupQuery.suspendFind().map { group ->
                 parseObjectToGroupMapper.mapEntity(group)
             }
         }
     }
 
     override suspend fun select(group: Group) {
-        val result = runWithExceptionCatching {
+        val result = runCatching {
             val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             currentUser.put(User.KEY_SELECTED_GROUP_ID, group.id)
@@ -88,14 +86,14 @@ class GroupRepositoryImpl @Inject constructor(
 
             requestParticipantsLocation()
 
-            return@runWithExceptionCatching group
+            return@runCatching group
         }
 
         _groupFlow.emit(result)
     }
 
     override suspend fun join(query: String) {
-        val result = runWithExceptionCatching {
+        val result = runCatching {
             val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
@@ -125,14 +123,14 @@ class GroupRepositoryImpl @Inject constructor(
 
             requestParticipantsLocation()
 
-            return@runWithExceptionCatching parseObjectToGroupMapper.mapEntity(group)
+            return@runCatching parseObjectToGroupMapper.mapEntity(group)
         }
 
         _groupFlow.emit(result)
     }
 
     override suspend fun leave() {
-        runWithExceptionCatching {
+        runCatching {
             val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {
@@ -155,25 +153,20 @@ class GroupRepositoryImpl @Inject constructor(
 
             requestParticipantsLocation()
 
-            _groupFlow.emit(Result.Error(Exception()))
+            _groupFlow.emit(Result.success(null))
         }
     }
 
     override suspend fun loadKey(): Result<String> {
-        return runWithExceptionCatching {
-            return@runWithExceptionCatching when (val groupResult = groupFlow.first()) {
-                is Result.Error -> throw Exception()
-                is Result.Success -> context.getString(
-                    R.string.add_participant_group_key,
-                    groupResult.data.name,
-                    groupResult.data.id,
-                )
+        return runCatching {
+            return@runCatching groupFlow.first().getOrThrow().let { group ->
+                context.getString(R.string.add_participant_group_key, group?.name, group?.id)
             }
         }
     }
 
     override suspend fun create(name: String) {
-        runWithExceptionCatching {
+        runCatching {
             val user = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val group = ParseObject(Group.CLASS_NAME).apply {
@@ -182,7 +175,7 @@ class GroupRepositoryImpl @Inject constructor(
                 suspendSave()
             }
 
-            _groupFlow.emit(Result.Success(parseObjectToGroupMapper.mapEntity(group)))
+            _groupFlow.emit(Result.success(parseObjectToGroupMapper.mapEntity(group)))
 
             user.put(User.KEY_SELECTED_GROUP_ID, group.objectId)
             user.suspendSave()
@@ -192,7 +185,7 @@ class GroupRepositoryImpl @Inject constructor(
     }
 
     override suspend fun requestParticipantsLocation() {
-        val result = kotlin.runCatching {
+        val result = runCatching {
             val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 
             val user = with(ParseQuery<ParseUser>(User.CLASS_NAME)) {

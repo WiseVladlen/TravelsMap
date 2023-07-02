@@ -3,7 +3,6 @@ package com.example.travels_map.presentation.main.group
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.travels_map.domain.common.Result
 import com.example.travels_map.domain.entities.Group
 import com.example.travels_map.domain.interactors.LeaveGroupInteractor
 import com.example.travels_map.domain.interactors.LoadGroupStateInteractor
@@ -44,13 +43,17 @@ class GroupViewModel(
             loadGroupStateInteractor.run()
                 .onStart { loadGroupInteractor.run() }
                 .collect { result ->
-                    when (result) {
-                        is Result.Error -> _errorStateFlow.emit(true)
-                        is Result.Success -> {
-                            _groupFlow.emit(result.data)
-                            _errorStateFlow.emit(false)
+                    result
+                        .onFailure { _errorStateFlow.emit(true) }
+                        .onSuccess { group ->
+                            if (group == null) {
+                                _errorStateFlow.emit(true)
+                            } else {
+                                _errorStateFlow.emit(false)
+                                _groupFlow.emit(group)
+                            }
                         }
-                    }
+
                     _loadingStateFlow.emit(false)
                 }
         }

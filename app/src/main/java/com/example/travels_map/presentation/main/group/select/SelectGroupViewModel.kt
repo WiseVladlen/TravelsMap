@@ -3,7 +3,6 @@ package com.example.travels_map.presentation.main.group.select
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.travels_map.domain.common.Result
 import com.example.travels_map.domain.entities.Group
 import com.example.travels_map.domain.interactors.LoadAvailableGroupListInteractor
 import com.example.travels_map.domain.interactors.SelectGroupInteractor
@@ -36,10 +35,12 @@ class SelectGroupViewModel(
 
     val groupListFlow: SharedFlow<List<GroupItem>> = flow {
         loadAvailableGroupListInteractor.run().let { result ->
-            when (result) {
-                is Result.Success -> emit(result.data.map { GroupItem(it) })
-                is Result.Error -> emit(listOf())
-            }
+            result
+                .onFailure { emit(emptyList<GroupItem>()) }
+                .onSuccess { groupList ->
+                    emit(groupList.map { GroupItem(it) })
+                }
+
             _loadingStateFlow.emit(false)
         }
     }.shareIn(

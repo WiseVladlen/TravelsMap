@@ -2,7 +2,6 @@ package com.example.travels_map.presentation.main.group.add_participant
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.travels_map.domain.common.Result
 import com.example.travels_map.domain.interactors.LoadGroupKeyInteractor
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
@@ -28,10 +27,10 @@ class AddParticipantViewModel(
 
     val groupKeyFlow: SharedFlow<String> = flow {
         loadGroupKeyInteractor.run().let { result ->
-            when (result) {
-                is Result.Success -> emit(result.data)
-                is Result.Error -> {}
-            }
+            result
+                .onFailure {  }
+                .onSuccess { emit(it) }
+
             _loadingStateFlow.emit(false)
         }
     }.shareIn(
