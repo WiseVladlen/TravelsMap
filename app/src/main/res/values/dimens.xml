@@ -98,4 +98,6 @@
     <dimen name="route_configuration.subhead_card_subtitle_start_margin">8dp</dimen>
     <!-- Create review sheet. -->
     <dimen name="create_review.container_vertical_padding">12dp</dimen>
+    <!-- Floating action button. -->
+    <dimen name="floating_action_button.margin">16dp</dimen>
 </resources>

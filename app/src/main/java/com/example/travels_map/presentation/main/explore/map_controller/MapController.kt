@@ -3,7 +3,7 @@ package com.example.travels_map.presentation.main.explore.map_controller
 import com.example.travels_map.domain.entities.Place
 import com.example.travels_map.domain.entities.Route
 import com.example.travels_map.domain.entities.User
-import com.example.travels_map.utils.map.MapUtil
+import com.example.travels_map.utils.map.MapObjectUtil
 import com.yandex.mapkit.directions.driving.DrivingRoute
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.geometry.Polyline
@@ -82,7 +82,7 @@ class MapController(
             list.forEach { place ->
                 addPlacemark(
                     place.coordinates,
-                    ImageProvider.fromBitmap(MapUtil.Place.drawBitmap())
+                    ImageProvider.fromBitmap(MapObjectUtil.Place.drawBitmap())
                 ).apply {
                     userData = place
                 }
@@ -95,7 +95,7 @@ class MapController(
             clear()
 
             list.forEach { user ->
-                addPlacemark(user.location, ImageProvider.fromBitmap(MapUtil.User.drawBitmap(user.username.first().toString())))
+                addPlacemark(user.location, ImageProvider.fromBitmap(MapObjectUtil.User.drawBitmap(user.username.first().toString())))
             }
         }
     }
@@ -111,7 +111,7 @@ class MapController(
             route.requestPoints.forEach { point ->
                 defaultController.getRoutePointCollection().addPlacemark(
                     point,
-                    ImageProvider.fromBitmap(MapUtil.Waypoint.drawBitmap())
+                    ImageProvider.fromBitmap(MapObjectUtil.Waypoint.drawBitmap())
                 ).apply {
                     userData = Place(
                         isCustomObject = true,

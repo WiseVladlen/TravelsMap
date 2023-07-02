@@ -12,6 +12,7 @@
         <!-- Surface brand color. -->
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/black</item>
+        <item name="colorOnSurfaceVariant">@color/charcoal</item>
         <!-- Status bar color. -->
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">?colorPrimaryVariant</item>
@@ -19,5 +20,6 @@
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
         <item name="materialButtonStyle">@style/MaterialButtonStyle</item>
         <item name="toolbarStyle">@style/ToolbarStyle</item>
+        <item name="tabStyle">@style/TabLayoutStyle</item>
     </style>
 </resources>

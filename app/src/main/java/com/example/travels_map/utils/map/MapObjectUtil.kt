@@ -11,7 +11,7 @@ import com.example.travels_map.R
 import com.example.travels_map.TravelsMapApplication
 import com.example.travels_map.utils.MetricUtil
 
-object MapUtil {
+object MapObjectUtil {
 
     private val context = TravelsMapApplication.INSTANCE
 

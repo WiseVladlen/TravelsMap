@@ -8,6 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/determine_user_location_fab"
+        style="@style/FloatingActionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        android:contentDescription="@string/explore.determine_user_location"
+        android:src="@drawable/ic_baseline_my_location_24" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

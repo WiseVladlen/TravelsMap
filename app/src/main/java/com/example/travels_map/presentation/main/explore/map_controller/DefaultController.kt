@@ -1,15 +1,14 @@
 package com.example.travels_map.presentation.main.explore.map_controller
 
 import com.example.travels_map.domain.entities.Place
-import com.example.travels_map.utils.map.MapUtil
-import com.yandex.mapkit.Animation
+import com.example.travels_map.utils.map.MapObjectUtil
+import com.example.travels_map.utils.map.updateCameraPosition
 import com.yandex.mapkit.GeoObject
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapEvent
 import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
 import com.yandex.runtime.image.ImageProvider
-import kotlin.math.pow
 
 class DefaultController(
     private val map: Map,
@@ -40,7 +39,7 @@ class DefaultController(
 
         selectedMapObject = placePointCollection.addPlacemark(
             point,
-            ImageProvider.fromBitmap(MapUtil.Place.drawBitmap())
+            ImageProvider.fromBitmap(MapObjectUtil.Place.drawBitmap())
         ).apply {
             userData = place
         }
@@ -49,7 +48,7 @@ class DefaultController(
 
         mapClickListener.onMapLongClick(place)
 
-        updateCameraPosition(point)
+        map.updateCameraPosition(point)
     }
 
     override fun onObjectTap(event: GeoObjectTapEvent): Boolean {
@@ -71,7 +70,7 @@ class DefaultController(
             )
         )
 
-        updateCameraPosition(point)
+        map.updateCameraPosition(point)
 
         return true
     }
@@ -85,7 +84,7 @@ class DefaultController(
 
         mapClickListener.onMapObjectClick(place)
 
-        updateCameraPosition(place.coordinates)
+        map.updateCameraPosition(place.coordinates)
 
         return true
     }
@@ -134,20 +133,5 @@ class DefaultController(
         temporaryMapObjectIsActivated = false
 
         deselectActiveObject()
-    }
-
-    private fun updateCameraPosition(point: Point) {
-        val duration = 100 / map.cameraPosition.zoom.pow(2)
-
-        map.move(
-            CameraPosition(
-                point,
-                map.cameraPosition.zoom,
-                map.cameraPosition.azimuth,
-                map.cameraPosition.tilt,
-            ),
-            Animation(Animation.Type.SMOOTH, duration),
-            null,
-        )
     }
 }

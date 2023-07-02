@@ -4,17 +4,14 @@ import android.os.Handler
 import android.os.Looper
 import com.example.travels_map.domain.entities.Place
 import com.example.travels_map.utils.map.AlphabetUtil
-import com.example.travels_map.utils.map.MapUtil
-import com.yandex.mapkit.Animation
+import com.example.travels_map.utils.map.MapObjectUtil
+import com.example.travels_map.utils.map.updateCameraPosition
 import com.yandex.mapkit.directions.driving.DrivingRoute
-import com.yandex.mapkit.geometry.Geometry
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.geometry.Polyline
 import com.yandex.mapkit.layers.GeoObjectTapEvent
 import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
 import com.yandex.runtime.image.ImageProvider
-import kotlin.math.pow
 
 class RouteConfigurationController(
     private val map: Map,
@@ -62,7 +59,7 @@ class RouteConfigurationController(
             addPolyline(drivingRoute.geometry)
         }
 
-        updateCameraPosition(drivingRoute.geometry)
+        map.updateCameraPosition(drivingRoute.geometry)
     }
 
     private fun checkPoint(point: Point) {
@@ -77,7 +74,7 @@ class RouteConfigurationController(
         val placeMark = waypointCollection.addPlacemark(
             point,
             ImageProvider.fromBitmap(
-                MapUtil.Waypoint.drawBitmap(AlphabetUtil.getAlphabetLetter(points.size))
+                MapObjectUtil.Waypoint.drawBitmap(AlphabetUtil.getAlphabetLetter(points.size))
             ),
         ).apply {
             userData = Place(coordinates = point, isCustomObject = true)
@@ -99,7 +96,7 @@ class RouteConfigurationController(
         for (i in indexedValue.index until points.size) {
             points[i].setIcon(
                 ImageProvider.fromBitmap(
-                    MapUtil.Waypoint.drawBitmap(AlphabetUtil.getAlphabetLetter(i))
+                    MapObjectUtil.Waypoint.drawBitmap(AlphabetUtil.getAlphabetLetter(i))
                 )
             )
         }
@@ -116,29 +113,6 @@ class RouteConfigurationController(
             it.geometry.latitude == point.latitude && it.geometry.longitude == point.longitude
         }
         return obj != null
-    }
-
-    private fun updateCameraPosition(polyline: Polyline) {
-        val cameraPosition = map.cameraPosition(
-            Geometry.fromPolyline(polyline),
-            map.cameraPosition.azimuth,
-            map.cameraPosition.tilt,
-            null,
-        )
-
-        val duration = 100 / map.cameraPosition.zoom.pow(2)
-        val zoom = cameraPosition.zoom * 0.95f
-
-        map.move(
-            CameraPosition(
-                cameraPosition.target,
-                zoom,
-                cameraPosition.azimuth,
-                cameraPosition.tilt
-            ),
-            Animation(Animation.Type.SMOOTH, duration),
-            null,
-        )
     }
 
     private fun clear() {

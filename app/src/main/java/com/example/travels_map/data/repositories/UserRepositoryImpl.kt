@@ -104,10 +104,12 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun updateLocation(location: Location): Result<Nothing?> {
         return runCatching {
-            ParseUser.getCurrentUser().apply {
+            val user = ParseUser.getCurrentUser().apply {
                 put(User.KEY_LOCATION, ParseGeoPoint(location.position.latitude, location.position.longitude))
                 suspendSave()
             }
+
+            _userFlow.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))
 
             return@runCatching null
         }

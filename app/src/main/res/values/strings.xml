@@ -145,4 +145,6 @@
         <item quantity="one">%d year ago</item>
         <item quantity="other">%d years ago</item>
     </plurals>
+    <!-- Explore screen. -->
+    <string name="explore.determine_user_location">Determine user location</string>
 </resources>

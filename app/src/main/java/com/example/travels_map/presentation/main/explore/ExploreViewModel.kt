@@ -10,11 +10,14 @@ import com.example.travels_map.domain.interactors.LoadDrivingRouteFlowInteractor
 import com.example.travels_map.domain.interactors.LoadPlaceListFlowInteractor
 import com.example.travels_map.domain.interactors.LoadDrivingRouteListFlowInteractor
 import com.example.travels_map.domain.interactors.LoadGroupParticipantListFlow
+import com.example.travels_map.domain.interactors.LoadUserFlowInteractor
 import com.example.travels_map.domain.interactors.RequestDrivingRouteInteractor
 import com.example.travels_map.domain.interactors.RequestPlaceListInteractor
 import com.example.travels_map.domain.interactors.RequestDrivingRouteListFlowInteractor
 import com.example.travels_map.domain.interactors.RequestGroupParticipantListInteractor
 import com.example.travels_map.domain.interactors.UpdateUserLocationInteractor
+import com.example.travels_map.utils.map.DEFAULT_POINT
+import com.example.travels_map.utils.map.DEFAULT_ZOOM
 import com.yandex.mapkit.directions.driving.DrivingRoute
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
@@ -39,6 +42,7 @@ class ExploreViewModel(
     private val requestPlaceListInteractor: RequestPlaceListInteractor,
     private val requestGroupParticipantListInteractor: RequestGroupParticipantListInteractor,
     private val updateUserLocationInteractor: UpdateUserLocationInteractor,
+    private val loadUserFlowInteractor: LoadUserFlowInteractor,
 ) : ViewModel() {
 
     private val jobLoadDrivingRoute: CompletableJob = SupervisorJob()
@@ -58,6 +62,8 @@ class ExploreViewModel(
     private val _groupParticipantListFlow = MutableSharedFlow<List<User>>(1, 1, BufferOverflow.DROP_OLDEST)
     val groupParticipantListFlow = _groupParticipantListFlow.asSharedFlow()
 
+    var user: User? = null
+
     private val drivingRoutePoints = mutableListOf<Point>()
 
     fun addDrivingRoutePoint(point: Point) = drivingRoutePoints.add(point)
@@ -66,7 +72,7 @@ class ExploreViewModel(
 
     fun clearDrivingRoutePoints() = drivingRoutePoints.clear()
 
-    var cameraPosition: CameraPosition = CameraPosition(Point(55.733330, 37.587649), 14f, 0f, 0f)
+    var cameraPosition: CameraPosition = CameraPosition(DEFAULT_POINT, DEFAULT_ZOOM, 0f, 0f)
         private set
 
     var selectedPoint: Point? = null
@@ -77,6 +83,7 @@ class ExploreViewModel(
         loadRouteListFlow()
         loadPlaceListFlow()
         loadGroupParticipantListFlow()
+        loadUserFlowInteractor()
     }
 
     fun savePoint(point: Point) {
@@ -156,6 +163,16 @@ class ExploreViewModel(
         }
     }
 
+    private fun loadUserFlowInteractor() {
+        viewModelScope.launch {
+            loadUserFlowInteractor.run().collect { result ->
+                result
+                    .onFailure {  }
+                    .onSuccess { user = it }
+            }
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         jobLoadDrivingRoute.cancel()
@@ -175,7 +192,8 @@ class ExploreViewModel(
         private val requestPlaceListInteractor: Provider<RequestPlaceListInteractor>,
         private val requestGroupParticipantListInteractor: Provider<RequestGroupParticipantListInteractor>,
         private val updateUserLocationInteractor: Provider<UpdateUserLocationInteractor>,
-    ) : ViewModelProvider.Factory {
+        private val loadUserFlowInteractor: Provider<LoadUserFlowInteractor>,
+        ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return ExploreViewModel(
@@ -188,6 +206,7 @@ class ExploreViewModel(
                 requestPlaceListInteractor.get(),
                 requestGroupParticipantListInteractor.get(),
                 updateUserLocationInteractor.get(),
+                loadUserFlowInteractor.get(),
             ) as T
         }
     }

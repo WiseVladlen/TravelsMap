@@ -22,6 +22,7 @@ import com.example.travels_map.utils.launchWhenCreated
 import com.example.travels_map.utils.location.LocationManagerUtil.isLocationPermissionsGranted
 import com.example.travels_map.utils.location.LocationManagerUtil.requestLocationPermissions
 import com.example.travels_map.utils.location.LocationManagerUtil.subscribeForLocationUpdates
+import com.example.travels_map.utils.map.updateCameraPosition
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -124,14 +125,6 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
         initializeView()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        if (!requireContext().isLocationPermissionsGranted()) {
-            requireActivity().requestLocationPermissions()
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         MapKitFactory.getInstance().onStart()
@@ -161,6 +154,7 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
         setupMapView()
         setupMapController()
         observeDataChanges()
+        setupOnClickListeners()
     }
 
     private fun setupMapView() {
@@ -201,5 +195,17 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
         viewModel.drivingRouteFlow.onEach { route ->
             mapController.drawDrivingRoute(route)
         }.launchWhenCreated(this)
+    }
+
+    private fun setupOnClickListeners() {
+        binding.determineUserLocationFab.setOnClickListener {
+            if (!requireContext().isLocationPermissionsGranted()) {
+                requireActivity().requestLocationPermissions()
+            }
+
+            viewModel.user?.location?.let { point ->
+                mapView.map.updateCameraPosition(point)
+            }
+        }
     }
 }

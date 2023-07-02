@@ -243,4 +243,13 @@
         <item name="android:layout_gravity">end|center_vertical</item>
         <item name="android:layout_marginEnd">@dimen/toolbar_action_button_end_margin</item>
     </style>
+
+    <style name="ModuleMainScreenStyle">
+        <item name="android:background">?colorOnPrimary</item>
+    </style>
+
+    <style name="FloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_margin">@dimen/floating_action_button.margin</item>
+        <item name="backgroundTint">?colorOnPrimary</item>
+    </style>
 </resources>
