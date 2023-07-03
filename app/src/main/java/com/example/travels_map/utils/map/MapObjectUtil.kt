@@ -34,7 +34,7 @@ object MapObjectUtil {
         private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.BLACK
             style = Paint.Style.STROKE
-            strokeWidth = MetricUtil.convertDpToPixel(2f)
+            strokeWidth = MetricUtil.convertDpToPixel(1.5f)
             isDither = true
         }
 
@@ -79,9 +79,9 @@ object MapObjectUtil {
         }
 
         private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = context.getColor(R.color.boeing_blue)
+            color = context.getColor(R.color.black)
             style = Paint.Style.STROKE
-            strokeWidth = MetricUtil.convertDpToPixel(1f)
+            strokeWidth = MetricUtil.convertDpToPixel(1.5f)
             isDither = true
         }
 
@@ -116,7 +116,7 @@ object MapObjectUtil {
         private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.BLACK
             style = Paint.Style.STROKE
-            strokeWidth = MetricUtil.convertDpToPixel(2f)
+            strokeWidth = MetricUtil.convertDpToPixel(1.5f)
             isDither = true
         }
 
@@ -146,7 +146,6 @@ object MapObjectUtil {
         }
     }
 
-    @Suppress("SameParameterValue")
     private fun getTextHeight(text: String, paint: Paint, textRect: Rect): Float {
         paint.getTextBounds(text, 0, text.length, textRect)
         return textRect.height().toFloat()
