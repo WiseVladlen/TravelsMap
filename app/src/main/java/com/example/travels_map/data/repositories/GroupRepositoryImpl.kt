@@ -82,7 +82,7 @@ class GroupRepositoryImpl @Inject constructor(
             currentUser.put(User.KEY_SELECTED_GROUP_ID, group.id)
             currentUser.suspendSave()
 
-            requestParticipantsLocation()
+            requestGroupParticipantList()
 
             return@runCatching group
         }
@@ -118,7 +118,7 @@ class GroupRepositoryImpl @Inject constructor(
             user.put(User.KEY_SELECTED_GROUP_ID, group.objectId)
             user.suspendSave()
 
-            requestParticipantsLocation()
+            requestGroupParticipantList()
 
             return@runCatching parseObjectToGroupMapper.mapEntity(group)
         }
@@ -148,7 +148,7 @@ class GroupRepositoryImpl @Inject constructor(
             user.put(User.KEY_SELECTED_GROUP_ID, String())
             user.suspendSave()
 
-            requestParticipantsLocation()
+            requestGroupParticipantList()
 
             _groupFlow.emit(Result.success(null))
         }
@@ -177,11 +177,11 @@ class GroupRepositoryImpl @Inject constructor(
             user.put(User.KEY_SELECTED_GROUP_ID, group.objectId)
             user.suspendSave()
 
-            requestParticipantsLocation()
+            requestGroupParticipantList()
         }
     }
 
-    override suspend fun requestParticipantsLocation() {
+    override suspend fun requestGroupParticipantList() {
         val result = runCatching {
             val currentUser = userRepository.getCurrentParseUserSafely() ?: throw Exception()
 

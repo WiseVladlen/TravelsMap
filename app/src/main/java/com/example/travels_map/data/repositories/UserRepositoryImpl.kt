@@ -106,7 +106,7 @@ class UserRepositoryImpl @Inject constructor(
         return runCatching {
             val user = ParseUser.getCurrentUser().apply {
                 put(User.KEY_LOCATION, ParseGeoPoint(location.position.latitude, location.position.longitude))
-                suspendSave()
+                saveEventually()
             }
 
             _userFlow.emit(Result.success(parseObjectToUserMapper.mapEntity(user)))

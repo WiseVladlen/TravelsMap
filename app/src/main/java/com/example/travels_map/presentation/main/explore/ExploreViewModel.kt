@@ -20,6 +20,7 @@ import com.example.travels_map.utils.map.DEFAULT_POINT
 import com.example.travels_map.utils.map.DEFAULT_ZOOM
 import com.yandex.mapkit.directions.driving.DrivingRoute
 import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.location.Location
 import com.yandex.mapkit.map.CameraPosition
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +50,8 @@ class ExploreViewModel(
     private val jobLoadRouteList: CompletableJob = SupervisorJob()
     private val jobLoadPlaceLabelList: CompletableJob = SupervisorJob()
     private val jobLoadGroupParticipantList: CompletableJob = SupervisorJob()
+
+    private val jobUpdateUserLocation: CompletableJob = SupervisorJob()
 
     private val _drivingRouteFlow = MutableSharedFlow<DrivingRoute>(1, 1, BufferOverflow.DROP_OLDEST)
     val drivingRouteFlow = _drivingRouteFlow.asSharedFlow()
@@ -104,8 +107,8 @@ class ExploreViewModel(
         }
     }
 
-    fun updateUserLocation(location: com.yandex.mapkit.location.Location) {
-        viewModelScope.launch {
+    fun updateUserLocation(location: Location) {
+        viewModelScope.launch(Dispatchers.IO + jobUpdateUserLocation) {
             updateUserLocationInteractor.run(location)
                 .onFailure {  }
                 .onSuccess { requestGroupParticipantListInteractor.run() }
@@ -179,6 +182,8 @@ class ExploreViewModel(
         jobLoadRouteList.cancel()
         jobLoadPlaceLabelList.cancel()
         jobLoadGroupParticipantList.cancel()
+
+        jobUpdateUserLocation.cancel()
     }
 
     @Suppress("UNCHECKED_CAST")

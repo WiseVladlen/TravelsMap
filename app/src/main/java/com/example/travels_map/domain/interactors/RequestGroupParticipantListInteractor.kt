@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class RequestGroupParticipantListInteractor @Inject constructor(private val groupRepository: IGroupRepository) {
 
-    suspend fun run() = groupRepository.requestParticipantsLocation()
+    suspend fun run() = groupRepository.requestGroupParticipantList()
 }

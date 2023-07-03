@@ -15,5 +15,5 @@ interface IGroupRepository {
     suspend fun leave()
     suspend fun loadKey(): Result<String>
     suspend fun create(name: String)
-    suspend fun requestParticipantsLocation()
+    suspend fun requestGroupParticipantList()
 }
