@@ -250,6 +250,8 @@
 
     <style name="FloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:layout_margin">@dimen/floating_action_button.margin</item>
-        <item name="backgroundTint">?colorOnPrimary</item>
+        <item name="elevation">@dimen/floating_action_button.elevation</item>
+        <item name="borderWidth">@dimen/floating_action_button.borderWidth</item>
+        <item name="android:backgroundTint">?colorOnPrimary</item>
     </style>
 </resources>

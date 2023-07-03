@@ -100,4 +100,6 @@
     <dimen name="create_review.container_vertical_padding">12dp</dimen>
     <!-- Floating action button. -->
     <dimen name="floating_action_button.margin">16dp</dimen>
+    <dimen name="floating_action_button.elevation">0dp</dimen>
+    <dimen name="floating_action_button.borderWidth">1dp</dimen>
 </resources>
